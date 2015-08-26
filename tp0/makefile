@@ -1,2 +1,5 @@
+CC=gcc
+CFLAGS=-I
+
 orgatpcero: main.c
-	gcc -o orgatpcero main.c -I.
+	$(CC) -o orgatpcero main.c -I.
