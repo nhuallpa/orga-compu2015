@@ -1,15 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+typedef struct {
+       int cantFil;
+       int cantCol;
+       double** datos;
+} matriz;
+
+
 int main(int argc, const char* argv[]) {
-
-
-	typedef struct {
-	   int cantFil;
-	   int cantCol;
-	   double** datos;
-	} matriz;
-
 
 	matriz m_a;
 	matriz m_b;
@@ -164,7 +163,24 @@ int main(int argc, const char* argv[]) {
 
 	// multipliacacion de la matriz
 
+
+
+
 	// imprimir la matriz resultado por stdout
+
+    // liberar memoria
+    for(i=0;i<m_a.cantFil;i++){        
+        free(m_a.datos[i]);
+    }
+    free(m_a.datos);
+
+    for(i=0;i<m_b.cantFil;i++){
+        
+        free(m_b.datos[i]);
+        
+    }
+    free(m_b.datos);
+    free(equis);
 
 
   return 0;
