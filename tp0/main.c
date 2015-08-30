@@ -7,6 +7,16 @@ typedef struct {
        double** datos;
 } matriz;
 
+void imprimirMatriz(matriz* p_m) {
+    int i,j;
+    for(i=0;i<(*p_m).cantFil;i++){
+        printf("\n|");
+        for(j=0;j<(*p_m).cantCol;j++){
+            printf("\t%lf\t| ",(*p_m).datos[i][j]);
+        }
+    }
+    printf("\n");
+}
 
 int main(int argc, const char* argv[]) {
 
@@ -130,58 +140,73 @@ int main(int argc, const char* argv[]) {
 
             // aqui solo un resumen de lo que nos quedaria por hacer una ves
             // ingresadas las matrices y cargadas en memoria
-            // resultado = multiplicarmatrices(m_a,m_b);
-            // imprimirmatrizresultado(resultado);
-
 
 		}
-
-
 
 		// imprimir las matrices por stdout
-		for(i=0;i<m_a.cantFil;i++){
-			printf("\n|");
-			for(j=0;j<m_a.cantCol;j++){
-				printf("\t%lf\t| ",m_a.datos[i][j]);
-			}
-		}
-		printf("\n");
+	
+        imprimirMatriz(&m_a);
 
-		for(i=0;i<m_b.cantFil;i++){
-			printf("\n|");
-			for(j=0;j<m_b.cantCol;j++){
-				printf("\t%lf\t| ",m_b.datos[i][j]);
-			}
-		}
-		printf("\n");
+        imprimirMatriz(&m_b);
 
 	    fclose(fp);
+
+        // hacer post validaciones
+
+        // multipliacacion de la matriz
+        matriz m_c;
+        m_c.cantFil = m_a.cantFil;
+        m_c.cantCol = m_b.cantCol;
+        m_c.datos = ((double**)malloc(m_c.cantFil*sizeof(double*)));
+        if (m_c.datos==NULL){
+            printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
+            exit(1);
+        }
+        for (i=0; i<m_c.cantFil; i++) {
+            m_c.datos[i] = ((double*)malloc(m_c.cantCol*sizeof(double)));
+            if(m_c.datos[i]==NULL)
+            {
+                printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
+                exit(-1);
+            }
+        }
+
+        
+        for (i=0; i<m_c.cantFil; i++) {
+            for (j=0; j<m_c.cantCol; j++) {
+                int k = 0;
+                double suma = 0.0;
+                for (k=0; k<m_a.cantCol;k++) {
+                    suma = suma + (m_a.datos[i][k] * m_b.datos[k][j]);
+                }
+
+                m_c.datos[i][j] = suma;
+            }
+        }
+
+        // imprimir la matriz resultado por stdout
+        imprimirMatriz(&m_c);
+
+        // liberar memoria
+        for(i=0;i<m_a.cantFil;i++){        
+            free(m_a.datos[i]);
+        }
+        free(m_a.datos);
+
+        for(i=0;i<m_b.cantFil;i++){
+            free(m_b.datos[i]);
+        }
+        free(m_b.datos);
+
+        for(i=0;i<m_c.cantFil;i++){
+            free(m_c.datos[i]);
+        }
+        free(m_c.datos);
+
+        free(equis);
+
 	}
-
-
-	// hacer post validaciones
-
-	// multipliacacion de la matriz
-
-
-
-
-	// imprimir la matriz resultado por stdout
-
-    // liberar memoria
-    for(i=0;i<m_a.cantFil;i++){        
-        free(m_a.datos[i]);
-    }
-    free(m_a.datos);
-
-    for(i=0;i<m_b.cantFil;i++){
-        
-        free(m_b.datos[i]);
-        
-    }
-    free(m_b.datos);
-    free(equis);
-
-
-  return 0;
+    return 0;
 }
+
+
