@@ -25,11 +25,31 @@ int main(int argc, const char* argv[]) {
 	int i,j;
     char* equis = ((char*)malloc(sizeof(char)));
 
+	// validacion del parametro del programa
+	if ( argc <= 1 )
+	{
+	  fprintf(stderr, "El programa necesita un parametro(archivo de entrada)\n");	
+	  exit(1);	
+	}
+
+	const char* entrada = argv[1];
+	
+	/* 	
+	OTRAS VALIDACIONES:
+
+	# ver que el archivo no existe (ya esta hecho y probado) 
+	# Verificar si el archivo de entrada viene con una sola matriz.
+	# Se pueda muliplicar las matrices, por ejemplo si las 2 matricez en el archivo de entrada son de 2 x2 verificar que hallan 4 elementos
+	# verificar cuando el archivo viene mal formado, por ejemplo en vez de un numero viene un string
+	# ver que termine bien cuando no hay memoria. si malloc=NULL entonces ver los mensajes de erorr por stderror (esto esta hecho, pero no lo probe).
+
+	*/
+
 	/* se lee el archivo para leer las dimensiones de las matrices */
-	FILE *fp = fopen("entrada01.txt", "r");
+	FILE *fp = fopen(entrada, "r");
 
 	if (fp == NULL) {
-	  fprintf(stderr, "Can't open input file in.list!\n");
+	  fprintf(stderr, "No se puedo abrir el archivo %s\n",entrada);
 	  exit(1);
 	}
 	else
@@ -50,9 +70,9 @@ int main(int argc, const char* argv[]) {
 
 	/* se cargan los datos para las 2 matrices desde el archivo*/
 
-	fp = fopen("entrada01.txt", "r");
+	fp = fopen(entrada, "r");
 	if (fp == NULL) {
-	  fprintf(stderr, "Can't open input file in.list!\n");
+	  fprintf(stderr, "No se puedo abrir el archivo %s\n",entrada);
 	  exit(1);
 	}
 	else
