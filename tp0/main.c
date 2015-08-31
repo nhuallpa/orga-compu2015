@@ -158,9 +158,6 @@ int main(int argc, const char* argv[]) {
                 }
             }
 
-            // aqui solo un resumen de lo que nos quedaria por hacer una ves
-            // ingresadas las matrices y cargadas en memoria
-
 		}
 
 		// imprimir las matrices por stdout
@@ -173,6 +170,9 @@ int main(int argc, const char* argv[]) {
 
         // hacer post validaciones
 
+	    if (m_a.cantCol != m_b.cantFil){
+	    	printf("\n\t\t ERROR:NO SE PUEDEN MULTIPLICAR LAS MATRICES DEBIDO A SUS DIMENSIONES");
+	    }else{
         // multipliacacion de la matriz
         matriz m_c;
         m_c.cantFil = m_a.cantFil;
@@ -191,11 +191,11 @@ int main(int argc, const char* argv[]) {
             }
         }
 
-        
+        int k = 0;
+        double suma = 0.0;
         for (i=0; i<m_c.cantFil; i++) {
             for (j=0; j<m_c.cantCol; j++) {
-                int k = 0;
-                double suma = 0.0;
+            	suma = 0.0;
                 for (k=0; k<m_a.cantCol;k++) {
                     suma = suma + (m_a.datos[i][k] * m_b.datos[k][j]);
                 }
@@ -208,6 +208,12 @@ int main(int argc, const char* argv[]) {
         imprimirMatriz(&m_c);
 
         // liberar memoria
+        for(i=0;i<m_c.cantFil;i++){
+            free(m_c.datos[i]);
+        }
+        free(m_c.datos);
+    	}
+
         for(i=0;i<m_a.cantFil;i++){        
             free(m_a.datos[i]);
         }
@@ -217,11 +223,6 @@ int main(int argc, const char* argv[]) {
             free(m_b.datos[i]);
         }
         free(m_b.datos);
-
-        for(i=0;i<m_c.cantFil;i++){
-            free(m_c.datos[i]);
-        }
-        free(m_c.datos);
 
         free(equis);
 
