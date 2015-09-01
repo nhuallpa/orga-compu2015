@@ -27,11 +27,31 @@ int main(int argc, const char* argv[]) {
 	int i,j;
     char* equis = ((char*)malloc(sizeof(char)));
 
+	// validacion del parametro del programa
+	if ( argc <= 1 )
+	{
+	  fprintf(stderr, "El programa necesita un parametro(archivo de entrada)\n");	
+	  exit(1);	
+	}
+
+	const char* entrada = argv[1];
+	
+	/* 	
+	OTRAS VALIDACIONES:
+
+	# ver que el archivo no existe (ya esta hecho y probado) 
+	# Verificar si el archivo de entrada viene con una sola matriz.
+	# Se pueda muliplicar las matrices, por ejemplo si las 2 matricez en el archivo de entrada son de 2 x2 verificar que hallan 4 elementos
+	# verificar cuando el archivo viene mal formado, por ejemplo en vez de un numero viene un string
+	# ver que termine bien cuando no hay memoria. si malloc=NULL entonces ver los mensajes de erorr por stderror (esto esta hecho, pero no lo probe).
+
+	*/
+
 	/* se lee el archivo para leer las dimensiones de las matrices */
-	FILE *fp = fopen("entrada01.txt", "r");
+	FILE *fp = fopen(entrada, "r");
 
 	if (fp == NULL) {
-	  fprintf(stderr, "Can't open input file in.list!\n");
+	  fprintf(stderr, "No se puedo abrir el archivo %s\n",entrada);
 	  exit(1);
 	}
 	else
@@ -52,9 +72,9 @@ int main(int argc, const char* argv[]) {
 
 	/* se cargan los datos para las 2 matrices desde el archivo*/
 
-	fp = fopen("entrada01.txt", "r");
+	fp = fopen(entrada, "r");
 	if (fp == NULL) {
-	  fprintf(stderr, "Can't open input file in.list!\n");
+	  fprintf(stderr, "No se puedo abrir el archivo %s\n",entrada);
 	  exit(1);
 	}
 	else
@@ -140,9 +160,6 @@ int main(int argc, const char* argv[]) {
                 }
             }
 
-            // aqui solo un resumen de lo que nos quedaria por hacer una ves
-            // ingresadas las matrices y cargadas en memoria
-
 		}
 
 		// imprimir las matrices por stdout
@@ -155,6 +172,9 @@ int main(int argc, const char* argv[]) {
 
         // hacer post validaciones
 
+	    if (m_a.cantCol != m_b.cantFil){
+	    	printf("\n\t\t ERROR:NO SE PUEDEN MULTIPLICAR LAS MATRICES DEBIDO A SUS DIMENSIONES");
+	    }else{
         // multipliacacion de la matriz
         matriz m_c;
         m_c.cantFil = m_a.cantFil;
@@ -173,11 +193,11 @@ int main(int argc, const char* argv[]) {
             }
         }
 
-        
+        int k = 0;
+        double suma = 0.0;
         for (i=0; i<m_c.cantFil; i++) {
             for (j=0; j<m_c.cantCol; j++) {
-                int k = 0;
-                double suma = 0.0;
+            	suma = 0.0;
                 for (k=0; k<m_a.cantCol;k++) {
                     suma = suma + (m_a.datos[i][k] * m_b.datos[k][j]);
                 }
@@ -190,6 +210,12 @@ int main(int argc, const char* argv[]) {
         imprimirMatriz(&m_c);
 
         // liberar memoria
+        for(i=0;i<m_c.cantFil;i++){
+            free(m_c.datos[i]);
+        }
+        free(m_c.datos);
+    	}
+
         for(i=0;i<m_a.cantFil;i++){        
             free(m_a.datos[i]);
         }
@@ -199,11 +225,6 @@ int main(int argc, const char* argv[]) {
             free(m_b.datos[i]);
         }
         free(m_b.datos);
-
-        for(i=0;i<m_c.cantFil;i++){
-            free(m_c.datos[i]);
-        }
-        free(m_c.datos);
 
         free(equis);
 
