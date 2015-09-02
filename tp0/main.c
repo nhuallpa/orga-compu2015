@@ -6,7 +6,6 @@
 *           XXXXX - Ariel Martinez
 *           93194 - Facundo Caldora
 *  - Validaciones de I/O y formato.
-*  - Liberar la memoria cada dos matrices y cuando hay algun error
 *  - Probar en el emulador y generar dump de assemble.
 *  - Informe.
 */
@@ -31,6 +30,14 @@ void imprimirMatriz(matriz* p_m) {
         }
     }
     printf("\n");
+}
+
+void liberarMemoria(matriz* p_m){
+    int i;
+    for(i=0;i<(*p_m).cantFil;i++){
+        free((*p_m).datos[i]);
+    }
+    free((*p_m).datos);
 }
 
 int main(int argc, char** argv) {
@@ -141,11 +148,13 @@ int main(int argc, char** argv) {
         fscanf(fp, "%d", &m_b.cantCol);
 
         if (m_b.cantFil<0){
-            printf("\n\t\tERROR: FILA INGRESADA INVALIDA PARA MATRIZ A");
+            printf("\n\t\tERROR: FILA INGRESADA INVALIDA PARA MATRIZ B");
+            liberarMemoria(&m_a);
             exit(1);
         }
         if (m_b.cantCol<0){
-            printf("\n\t\tERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ A");
+            printf("\n\t\tERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ B");
+            liberarMemoria(&m_a);
             exit(1);
         }
 
@@ -154,6 +163,7 @@ int main(int argc, char** argv) {
         if(m_b.datos==NULL)
         {
             printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ B");
+            liberarMemoria(&m_a);
             exit(1);
         }
 
@@ -161,7 +171,8 @@ int main(int argc, char** argv) {
         {
             m_b.datos[i] = ((double*)malloc(m_b.cantCol*sizeof(double)));
             if(m_b.datos[i]==NULL){
-                printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
+                printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ B");
+                liberarMemoria(&m_a);
                 exit(-1);
             }
         }
@@ -175,8 +186,6 @@ int main(int argc, char** argv) {
             }
         }
 
-	}
-
 	// imprimir las matrices por stdout
 
     imprimirMatriz(&m_a);
@@ -187,7 +196,8 @@ int main(int argc, char** argv) {
 
     if (m_a.cantCol != m_b.cantFil){
     	printf("\n\t\t ERROR:NO SE PUEDEN MULTIPLICAR LAS MATRICES DEBIDO A SUS DIMENSIONES");
-    } else {
+    } 
+        else {
         // multipliacacion de la matriz
         matriz m_c;
         m_c.cantFil = m_a.cantFil;
@@ -195,6 +205,8 @@ int main(int argc, char** argv) {
         m_c.datos = ((double**)malloc(m_c.cantFil*sizeof(double*)));
         if (m_c.datos==NULL) {
             printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
+            liberarMemoria(&m_a);
+            liberarMemoria(&m_b);
             exit(1);
         }
 
@@ -203,6 +215,8 @@ int main(int argc, char** argv) {
             if(m_c.datos[i]==NULL)
             {
                 printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
+                liberarMemoria(&m_a);
+                liberarMemoria(&m_b);
                 exit(-1);
             }
         }
@@ -224,24 +238,20 @@ int main(int argc, char** argv) {
         imprimirMatriz(&m_c);
 
         // liberar memoria
-        for(i=0;i<m_c.cantFil;i++) {
-            free(m_c.datos[i]);
+      
+        liberarMemoria(&m_c);
         }
-        free(m_c.datos);
 
-        for(i=0;i<m_a.cantFil;i++){        
-            free(m_a.datos[i]);
-        }
-        free(m_a.datos);
+        // Aqui termina el else, en caso de que no se puedan multiplicar directamente 
+        // no se crea la matriz c. Se libera la memoria ocupada por datos de matriz a y b
+        // y se vuelven a leer las siguientes 2 matrices
+      
+        liberarMemoria(&m_a);
+        liberarMemoria(&m_b);
 
-        for(i=0;i<m_b.cantFil;i++){
-            free(m_b.datos[i]);
-        }
-        free(m_b.datos);
+    }
 
-        free(equis);
-
-	}
+    free(equis);
 
     return 0;
 }
