@@ -4,7 +4,11 @@
 *   Alumnos: 
 *           88614 - Huallpa Porcel
 *           XXXXX - Ariel Martinez
-*           XXXXX - Facundo Caldora
+*           93194 - Facundo Caldora
+*  - Validaciones de I/O y formato.
+*  - Liberar la memoria cada dos matrices y cuando hay algun error
+*  - Probar en el emulador y generar dump de assemble.
+*  - Informe.
 */
 
 #include <stdio.h>
