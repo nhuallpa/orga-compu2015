@@ -12,7 +12,13 @@ echo "Test 3: Multiplicacion de dos pares de matrices"
 cat res/test3.txt | ./tp0 	
 echo "-------------------------------------------------------------------------"
 echo "Test 4: Multiplicacion de matrices con dimensiones incorrectas"
-cat res/testDimensionIncorrecta.txt | ./tp0 	
+cat res/testDimensionIncorrecta.txt | ./tp0
+echo "-------------------------------------------------------------------------"
+echo "Test 5: Dimension de matriz leida incorrecta"
+cat res/testElementoIncorrecto1.txt | ./tp0
+echo "-------------------------------------------------------------------------"
+echo "Test 6: Elemento de matriz leida incorrecta"
+cat res/testElementoIncorrecto2.txt | ./tp0
 echo "========================================================================="
 echo "Fin de pruebas"
 echo "========================================================================="
