@@ -20,24 +20,18 @@ typedef struct {
        double** datos;
 } matriz;
 
-void imprimirMatriz(matriz* p_m) {
-    int i,j;
-    printf("%dX%d", (*p_m).cantFil, (*p_m).cantCol);
-    for(i=0;i<(*p_m).cantFil;i++){
-        
-        for(j=0;j<(*p_m).cantCol;j++){
-            printf(" %4.2lf",(*p_m).datos[i][j]);
-        }
-    }
-    printf("\n");
-}
-
 void liberarMemoria(matriz* p_m){
-    int i;
-    for(i=0;i<(*p_m).cantFil;i++){
-        free((*p_m).datos[i]);
+    if (p_m != NULL) 
+    {
+        int i;
+        for(i=0;i<(*p_m).cantFil;i++)
+        {
+            if ((*p_m).datos[i] != NULL) {
+                free((*p_m).datos[i]);    
+            }
+        }
+        free((*p_m).datos);
     }
-    free((*p_m).datos);
 }
 
 int main(int argc, char** argv) {
@@ -57,7 +51,6 @@ int main(int argc, char** argv) {
 
 
     while (1) {
-        /* Llamamos a la funci�n getopt */
         siguiente_opcion = getopt_long (argc, argv, op_cortas, op_largas, NULL);
         if (siguiente_opcion == -1) break;
         switch (siguiente_opcion) {
@@ -83,7 +76,10 @@ int main(int argc, char** argv) {
     }
 
 	matriz m_a;
+    m_a.datos = NULL;
 	matriz m_b;
+    m_b.datos = NULL;
+    
 	int i,j;
     char* equis = ((char*)malloc(sizeof(char)));
 	
@@ -94,6 +90,9 @@ int main(int argc, char** argv) {
 	# Se pueda muliplicar las matrices, por ejemplo si las 2 matricez en el archivo de entrada son de 2 x2 verificar que hallan 4 elementos
 	# verificar cuando el archivo viene mal formado, por ejemplo en vez de un numero viene un string
 	# ver que termine bien cuando no hay memoria. si malloc=NULL entonces ver los mensajes de erorr por stderror (esto esta hecho, pero no lo probe).
+
+    # Valida cada fscanf
+    # Liberar memoria ante un error y antes de salir
 
 
 	*/
@@ -110,26 +109,34 @@ int main(int argc, char** argv) {
 
         // Handlers de archivos mal ingresados
         if (m_a.cantFil<0){
-            printf("\n\t\tERROR: FILA INGRESADA INVALIDA PARA MATRIZ A");
+            fprintf(stderr, "ERROR: FILA INGRESADA INVALIDA PARA MATRIZ A");
             exit(1);
         }
         if (m_a.cantCol<0){
-            printf("\n\t\tERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ A");
+            fprintf(stderr, "ERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ A");
             exit(1);
         }
         	/* se aloja memoria para la matriz a */
         m_a.datos = ((double**)malloc(m_a.cantFil*sizeof(double*)));
-        if(m_a.datos==NULL){
-            printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
+        if (m_a.datos == NULL) {
+            fprintf(stderr, "ERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
             exit(1);
+        } 
+        else 
+        {
+            // Nuleamos array
+            for (i=0; i<m_a.cantFil; i++)
+            {
+                m_a.datos[i] = NULL;       
+            }
         }
 
-        for(i=0;i<m_a.cantFil;i++)
+        for (i=0;i<m_a.cantFil;i++)
         {
             m_a.datos[i] = ((double*)malloc(m_a.cantCol*sizeof(double)));
             if(m_a.datos[i]==NULL)
             {
-                printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
+                fprintf(stderr, "ERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
                 exit(-1);
             }
         }
@@ -138,22 +145,26 @@ int main(int argc, char** argv) {
         for(i=0;i<m_a.cantFil;i++){
             for(j=0;j<m_a.cantCol;j++){
 
-                fscanf(fp, "%lf", &m_a.datos[i][j]);
+                if (fscanf(fp, "%lf", &m_a.datos[i][j]) == 0) {
+                    fprintf(stderr, "ERROR:Elemento incorreco en la matriz");
+                }
 
             }
         }
+
+
         // Se leen los valores desde el archivo de fila columna y separador de ambos
         fscanf(fp, "%d" , &m_b.cantFil);
         fscanf(fp, "%c" , equis);
         fscanf(fp, "%d", &m_b.cantCol);
 
         if (m_b.cantFil<0){
-            printf("\n\t\tERROR: FILA INGRESADA INVALIDA PARA MATRIZ B");
+            fprintf(stderr, "ERROR: FILA INGRESADA INVALIDA PARA MATRIZ B");
             liberarMemoria(&m_a);
             exit(1);
         }
         if (m_b.cantCol<0){
-            printf("\n\t\tERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ B");
+            fprintf(stderr, "ERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ B");
             liberarMemoria(&m_a);
             exit(1);
         }
@@ -162,7 +173,7 @@ int main(int argc, char** argv) {
         m_b.datos = ((double**)malloc(m_b.cantFil*sizeof(double*)));
         if(m_b.datos==NULL)
         {
-            printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ B");
+            fprintf(stderr, "ERROR:MEMORIA INSUFICIENTE PARA MATRIZ B");
             liberarMemoria(&m_a);
             exit(1);
         }
@@ -171,7 +182,7 @@ int main(int argc, char** argv) {
         {
             m_b.datos[i] = ((double*)malloc(m_b.cantCol*sizeof(double)));
             if(m_b.datos[i]==NULL){
-                printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ B");
+                fprintf(stderr, "ERROR:MEMORIA INSUFICIENTE PARA MATRIZ B");
                 liberarMemoria(&m_a);
                 exit(-1);
             }
@@ -186,60 +197,32 @@ int main(int argc, char** argv) {
             }
         }
 
-	// imprimir las matrices por stdout
+        // hacer post validaciones
 
-    imprimirMatriz(&m_a);
-
-    imprimirMatriz(&m_b);
-
-    // hacer post validaciones
-
-    if (m_a.cantCol != m_b.cantFil){
-    	printf("\n\t\t ERROR:NO SE PUEDEN MULTIPLICAR LAS MATRICES DEBIDO A SUS DIMENSIONES");
-    } 
-        else {
-        // multipliacacion de la matriz
-        matriz m_c;
-        m_c.cantFil = m_a.cantFil;
-        m_c.cantCol = m_b.cantCol;
-        m_c.datos = ((double**)malloc(m_c.cantFil*sizeof(double*)));
-        if (m_c.datos==NULL) {
-            printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
-            liberarMemoria(&m_a);
-            liberarMemoria(&m_b);
-            exit(1);
-        }
-
-        for (i=0; i<m_c.cantFil; i++) {
-            m_c.datos[i] = ((double*)malloc(m_c.cantCol*sizeof(double)));
-            if(m_c.datos[i]==NULL)
+        if (m_a.cantCol != m_b.cantFil) 
+        {
+        	fprintf(stderr, "ERROR:NO SE PUEDEN MULTIPLICAR LAS MATRICES DEBIDO A SUS DIMENSIONES");
+        } 
+        else 
+        {
+            // multipliacacion de la matriz
+            printf("%dX%d", m_a.cantFil, m_b.cantCol);
+            int k = 0;
+            double suma = 0.0;
+            for (i=0; i<m_a.cantFil; i++) 
             {
-                printf("\n\t\tERROR:MEMORIA INSUFICIENTE PARA MATRIZ A");
-                liberarMemoria(&m_a);
-                liberarMemoria(&m_b);
-                exit(-1);
-            }
-        }
-
-        int k = 0;
-        double suma = 0.0;
-        for (i=0; i<m_c.cantFil; i++) {
-            for (j=0; j<m_c.cantCol; j++) {
-            	suma = 0.0;
-                for (k=0; k<m_a.cantCol;k++) {
-                    suma = suma + (m_a.datos[i][k] * m_b.datos[k][j]);
+                for (j=0; j<m_b.cantCol; j++) 
+                {
+                	suma = 0.0;
+                    for (k=0; k<m_a.cantCol;k++) 
+                    {
+                        suma = suma + (m_a.datos[i][k] * m_b.datos[k][j]);
+                    }
+                    printf(" %4.2lf", suma);
                 }
-
-                m_c.datos[i][j] = suma;
             }
-        }
+            printf("\n");
 
-        // imprimir la matriz resultado por stdout
-        imprimirMatriz(&m_c);
-
-        // liberar memoria
-      
-        liberarMemoria(&m_c);
         }
 
         // Aqui termina el else, en caso de que no se puedan multiplicar directamente 
