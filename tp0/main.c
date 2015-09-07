@@ -2,8 +2,8 @@
 *   6620 - Organizacion del computador 
 *   Trabajo Practico 0 
 *   Alumnos: 
-*           88614 - Huallpa Porcel
-*           XXXXX - Ariel Martinez
+*           88614 - Nestor Huallpa
+*           88573 - Ariel Martinez
 *           93194 - Facundo Caldora
 *  - Validaciones de I/O y formato.
 *  - Probar en el emulador y generar dump de assemble.
@@ -124,21 +124,6 @@ int main(int argc, char** argv) {
 
 	int i,j;
     
-	
-	/* 	
-	OTRAS VALIDACIONES:
-
-	# Verificar si el archivo de entrada viene con una sola matriz.
-	# Se pueda muliplicar las matrices, por ejemplo si las 2 matricez en el archivo de entrada son de 2 x2 verificar que hallan 4 elementos
-	# verificar cuando el archivo viene mal formado, por ejemplo en vez de un numero viene un string
-	# ver que termine bien cuando no hay memoria. si malloc=NULL entonces ver los mensajes de erorr por stderror (esto esta hecho, pero no lo probe).
-
-    # Valida cada fscanf
-    # Liberar memoria ante un error y antes de salir
-
-
-	*/
-
     FILE * fp = stdin;
     
 	/* se cargan los datos para las 2 matrices desde el archivo*/
