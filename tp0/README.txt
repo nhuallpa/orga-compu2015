@@ -10,4 +10,3 @@ Validaciones:
 	07) Verificar que la cantidad de matrices sean pares. FALTA
 	08) ver que termine bien cuando no hay memoria. si malloc=NULL entonces ver los mensajes de error por stderror. PROBAR
     09) Liberar memoria ante un error y antes de salir
-    10)

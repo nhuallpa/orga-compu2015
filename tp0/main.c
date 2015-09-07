@@ -170,12 +170,14 @@ int main(int argc, char** argv) {
 
 
         // Se leen los valores desde el archivo de fila columna y separador de ambos
+        //TODO se tiene que hacer el parseo de si existe o no la linea de otra forma. No se esta detectando la existencia de la linea
+        // y por ende las dimensiones para la matriz B son leidas, pero con valores cualesquiera. Esos valores cualesquiera se utilizan
+        // para reservar memoria. :)
         if (fscanf(fp, "%dx%d" , &m_b.cantFil, &m_b.cantCol) == 0)
         {
             fprintf(stderr, "ERROR: AL LEER LA FILA O LA COLUMNA DE B\n");
             exit(1);
         }
-
 
         if (m_b.cantFil<0)
         {
@@ -189,7 +191,7 @@ int main(int argc, char** argv) {
             liberarMemoria(&m_a);
             exit(1);
         }
-
+        
         /* se aloja memoria para la matriz b */
         m_b.datos = mallocMatrizDouble(m_b.cantFil, m_b.cantCol);
         if (m_b.datos==NULL)
