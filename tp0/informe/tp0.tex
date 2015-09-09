@@ -1,0 +1,249 @@
+\documentclass[a4paper,10pt]{article}
+% Paquete para inclusión de gráficos.
+\usepackage{graphicx}
+% Paquete para definir el idioma usado.
+\usepackage[spanish]{babel}
+% Paquete para definir la codificación del conjunto de caracteres usado
+% (latin1 es ISO 8859-1).
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+
+
+% Título principal del documento.
+\title{	\ Trabajo Práctico Nº 0: Infraestructura Básica}
+% Información sobre los autores.
+\author{	Martinez Ariel, \textit{Padrón Nro. 88573}\\
+            \texttt{ arielcorreofiuba@gmail.com.ar }\\\\
+            Nestor Huallpa, \textit{Padrón Nro. }\\
+            \texttt{ huallpa.nestor@gmail.com }\\\\
+			Facundo Caldora, \textit{Padrón Nro. [completar con el padron] }\\
+            \texttt{ [completar con mail] }\\\\               
+            \texttt{\footnotesize 1º Entrega: 08/09/2015}\\
+            \\\\\\\\\\\\\\\\\\
+            \normalsize{2do. Cuatrimestre de 2015}\\ 
+            \normalsize{66.20 Organización de Computadoras} \\
+            \normalsize{Facultad de Ingeniería, Universidad de Buenos Aires} \\}
+       
+\date{}
+
+\begin{document}
+% Inserta el título.
+\maketitle
+% quita el número en la primer página
+\thispagestyle{empty}
+% Resumen
+\begin{abstract}
+En el presente trabajo práctico se describirán todos los pasos y 
+conclusiones relacionadas al desarrollo e implementación de multiplicacion de matrices de numero reales, representados
+en punto flotante de doble precisiòn.
+\end{abstract}
+\newpage{}
+\tableofcontents
+\newpage{}
+
+\begin{flushleft}
+
+\par\end{flushleft}
+\section{{\normalsize Introducción}}
+
+Completar con la introduccion...
+
+
+\section{{\normalsize Implementación}}
+
+\subsection{{\normalsize Lenguaje}}
+
+Como lenguaje de implementación se eligió ANSI C  \cite{Kernighan+Ritchie}
+ya que el mismo permite una alta portabilidad entre diferentes plataformas. 
+El desarrollo del programa se realizó usando un editor de texto 
+(gedit,vim, kwrite) y compilando los archivos fuente con 
+\htmladdnormallink{GCC}{http://gcc.gnu.org/} que viene en linux 
+(probado en Ubuntu y Fedora 12). También una parte se desarrollo 
+usando el IDE \htmladdnormallink{Eclipse}{http://www.eclipse.org/cdt/} con su 
+respectivo plugin para C/C++ y se comprobó que dicho programa
+compile con el \htmladdnormallink{GCC}{http://gcc.gnu.org/} que 
+viene dentro de NETBSD, y como adicional, también se comprobó que 
+el mismo compile y funcione en Windows por medio del 
+\htmladdnormallink{MinGW}{http://www.mingw.org} el cual es una 
+implemetación de los compiladores 
+\htmladdnormallink{GCC}{http://gcc.gnu.org/} para la plataforma 
+Win32 que permite migrar la capacidad de este compilador en 
+entornos windows.
+La compilación en Linux y en \texttt{BSD, MIPS} se realizó con la 
+siguiente línea de comando:
+
+\textbf{\emph{gcc -Wall -ansi -O0 -o tp0 main.c}}
+
+
+\subsection {{\normalsize Descripción del programa}}
+
+Cuando se pasa un nombre como argumento, se verifica que dicho nombre 
+que está haciendo referencia a un archivo, verdaderamente haga referencia 
+a un archivo (.txt, .dat etc (\htmladdnormallink{Regular File}{http://en.wikipedia.org/wiki/Unix_file_types\#Regular_file})) 
+y no a un archivo de directorio, un archivo de dispositivo etc. Una 
+vez hecha la verificación el programa se dispone a leer cada una de 
+las líneas desde el final hacia el principio y las vuelca por salida 
+estándar (stdout). En caso que las lineas provengan del stdin, 
+se utiliza un buffer de memoria dinámica que almacena todas las lineas.\\
+La función \texttt{main} se encuentra en \texttt{tp0.c} y se encarga de 
+interpretar las opciones y argumentos. En caso de ser una opción, 
+como ayuda o versión, se imprime el mensaje correspondiente y finaliza
+la ejecución. Cuando no es una opción de ayuda o versión, se procede 
+a procesar los datos de entrada, ya sean provenientes del stdin o de 
+archivos. La salida de estas funciones proveen 
+un codigo de error que sirve como salida del programa. Los mensajes de 
+versión y ayuda se imprimen por salida estándar (stdout) y el programa 
+finaliza devolviendo 0 (cero) al sistema. Los mensajes de error se 
+imprimen por la salida de errores (stderr) y el programa finaliza 
+devolviendo 1 (uno) al sistema.
+
+
+\subsubsection {{\normalsize Errores posibles}}
+
+\begin{enumerate}
+\item El procesamiento de la entrada estándar causó el agotamiento del heap.
+\item La invocación del programa es incorrecta.
+\item Alguno de los archivos es inexistente.
+\item Completar con mas posibles errores...
+\end{enumerate}
+
+Se contemplan otros errores gracias al uso de la variable externa errno. 
+Cuando ocurre un error inesperado, el mismo es informado por stderr 
+(con la funión perror()).
+
+\subsection{{\normalsize Desarrollo de actividades}}
+
+\begin{enumerate}
+\item Se instaló en un linux un repositorio de fuentes 
+\htmladdnormallink{(SVN)}{http://es.wikipedia.org/wiki/Subversion}
+para que al dividir las tareas del TP se pudiese hacer una unión de
+los cambios ingresados por cada uno de los integrantes más fácilmente. 
+\item Cada persona del grupo se comprometió a que sus cambios en el el código
+fuente y los cambios obtenidos del SVN que pudiesen haber subido los
+otros integrantes del grupo, sean compilados en diferentes sistemas
+operativos: Windows, Linux y el GXEmul, asegurando así la máxima portabilidad
+entre plataformas planteada en el enunciado. 
+\item Se estableció que todos los integrantes en mayor o menor medida, 
+contribuyan en el desarrollo de todas las partes del código para que 
+nadie quede en desconocimiento de lo que se hizo en cada sección. 
+Si bien cada parte del código está comenazada por diferentes integrantes (parseo
+de los argumentos, lectura de los ficheros, etc), todos nos 
+familiarizamos con cada una de estas partes y cumplimos la función 
+de testers de lo hecho por otros integrantes. 
+\item Se propuso como meta paralela, hacer el programa lo mas reutilizable
+posible tratando de que los métodos desarrollados, sean los suficientemente
+modulares como para su posible reutilización en los TPs venideros. 
+\item Debido desconocimiento de \LaTeX{} \cite{latex} para algunos 
+integrantes del grupo, uno de los integrantes dió una breve introducción 
+de como desarrollar este informe para que todos pudiésen modificarlo y agregar lo que considerase
+necesario. Para compilar el archivo del informe se usaron el compilador
+de \LaTeX{} \cite{latex} propio que viene en el Linux, y en el caso que sea necesario
+compilar el informe en un Windows se uso el \htmladdnormallink{MIKTEX}{http://miktex.org/}
+el cuál es una implementación del compilador de \LaTeX{} \cite{latex} para dicha plataforma.
+\item Para poder generar el código assembler a partir del código fuente, 
+dentro de NETBSD se utilizó gcc con la siguiente opción: 
+\begin{tabbing}
+------- \= ----- \= \kill
+\> \textbf{\emph{gcc -S -Wall -O0 tp0.c -mrnames}}\\ 
+\end{tabbing}
+\item Para crear el presente informe en formato PDF usando \LaTeX{} \cite{latex}
+en Linux, ingresar los siguientes comandos:
+\begin{tabbing}
+------- \= ----- \= \kill
+\> \textbf{\emph{\$ pdflatex tp0.tex tp0.pdf}}\\ 
+\end{tabbing}
+\end{enumerate}
+
+\subsection{{\normalsize Screenshots}}
+
+\begin{enumerate}
+\item NetBSD corriendo
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\newpage{}
+\item Túnel SSH
+\item Linux a NetBSD
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\item NetBsd a Linux
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\newpage{}
+\item Programa compilado y corriendo en NetBSD
+\item Mensaje de ayuda
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\item Mensaje de Versión
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\newpage{}
+\item Pruebas
+\item Archivo Alumnos.txt
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\item Varios Archivos
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\newpage{}
+\item Stdin y Archivos
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\item Solo Stdin
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\newpage{}
+\item Errores
+\item Archivo regular.
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\newpage{}
+\item Archivo inexistente.
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\item Mala Invocación.
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\newpage{}
+\item Código assembler
+\begin{center}
+\includegraphics[width=110mm,height=80mm]{temporal.png}
+\end{center}
+\end{enumerate}
+
+\newpage{}
+\section{{\normalsize Conclusiones}}
+
+\begin{enumerate}
+\item Si bien el lo solicitado por el programa no era excesivamente difícil,
+la realización completa del TP llevó cierta dificultad al tener que
+realizarlo en el contexto solicitado: alta portabilidad, desarrollo
+en C, e informe hecho en \LaTeX{} \cite{latex}. 
+\item En el primer caso la dificultad radicaba en tener configurado 
+y funcionando el GXEmul dentro de un Linux, y lograr que en ambos casos 
+el programa compile y corra sin problemas. 
+\item Debido a nuestro desconocimiento con \LaTeX{} \cite{latex}, tuvimos que 
+invertir tiempo en encontrar forma de realizar el presente documento 
+de la manera más correcta posible 
+\item En cuanto al trabajo grupal en si mismo, no hubo inconvenientes de
+ningún tipo ya que al ser el grupo relativamente chico y tener conocimiento
+del manejo del versionado de un proyecto ante cambios ingresado por
+los integrantes (por medio del SVN), la introducción de modificaciones
+y correcciones fué fluida. 
+\end{enumerate}
+
+\bibliographystyle{plain}
+\bibliography{bibliografia}
+\nocite{*}
+\end{document}

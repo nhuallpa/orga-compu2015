@@ -1,2 +1,2 @@
 Comando para compilar el .tex:
-pdflatex tp0.tex tpo.pdf
+pdflatex tp0.tex tp0.pdf
