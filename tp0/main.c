@@ -135,8 +135,6 @@ int main(int argc, char** argv) {
             fprintf(stderr, "ERROR: AL LEER LA FILA O LA COLUMNA DE A\n");
             exit(1);
         }
-      
-
         // Handlers de archivos mal ingresados
         if (m_a.cantFil<0){
             fprintf(stderr, "ERROR: FILA INGRESADA INVALIDA PARA MATRIZ A\n");
@@ -146,7 +144,10 @@ int main(int argc, char** argv) {
             fprintf(stderr, "ERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ A\n");
             exit(1);
         }
-
+        if (m_a.cantFil==0 || m_a.cantCol == 0){
+            fprintf(stderr, "ERROR: MATRIZ A NO INGRESADA O ESPACIO DE MAS EN EL ARCHIVO\n" );
+            exit(1);
+        }
         /* se aloja memoria para la matriz a */
         m_a.datos = mallocMatrizDouble(m_a.cantFil, m_a.cantCol);
         if (m_a.datos == NULL) {
@@ -189,6 +190,11 @@ int main(int argc, char** argv) {
         {
             fprintf(stderr, "ERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ B\n");
             liberarMemoria(&m_a);
+            exit(1);
+        }
+
+        if (m_b.cantFil==0 || m_b.cantCol == 0){
+            fprintf(stderr, "ERROR: MATRIZ B NO INGRESADA \n" );
             exit(1);
         }
         
@@ -246,7 +252,10 @@ int main(int argc, char** argv) {
       
         liberarMemoria(&m_a);
         liberarMemoria(&m_b);
-
+        m_a.cantFil = 0;
+        m_a.cantCol = 0;
+        m_b.cantFil = 0;
+        m_a.cantCol = 0;
     }
 
     return 0;
