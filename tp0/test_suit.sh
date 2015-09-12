@@ -19,9 +19,12 @@ cat entrada/testElementoIncorrecto1.txt | ./tp0
 echo "-------------------------------------------------------------------------"
 echo "Test 6: Elemento de matriz leida incorrecta"
 cat entrada/testElementoIncorrecto2.txt | ./tp0
-#echo "-------------------------------------------------------------------------"
-#echo "Test 7: Multiplicacion de matrices impares"
-#cat entrada/testImpar1.txt | ./tp0
+echo "-------------------------------------------------------------------------"
+echo "Test 7: Multiplicacion de matrices impares(solo una matriz cargada)"
+cat entrada/testImpar1.txt | ./tp0
+echo "-------------------------------------------------------------------------"
+echo "Test 8: Multiplicacion de matrices impares(5 matrices cargadas)"
+cat entrada/testImpar2.txt | ./tp0
 echo "========================================================================="
 echo "Fin de pruebas"
 echo "========================================================================="

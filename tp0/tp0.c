@@ -118,12 +118,8 @@ int main(int argc, char** argv) {
     }
 
 	matriz m_a;
-    m_a.datos = NULL;
 	matriz m_b;
-    m_b.datos = NULL;
-
 	int i,j;
-    
     FILE * fp = stdin;
     
 	/* se cargan los datos para las 2 matrices desde el archivo*/
@@ -171,9 +167,6 @@ int main(int argc, char** argv) {
 
 
         // Se leen los valores desde el archivo de fila columna y separador de ambos
-        //TODO se tiene que hacer el parseo de si existe o no la linea de otra forma. No se esta detectando la existencia de la linea
-        // y por ende las dimensiones para la matriz B son leidas, pero con valores cualesquiera. Esos valores cualesquiera se utilizan
-        // para reservar memoria. :)
         if (fscanf(fp, "%dx%d" , &m_b.cantFil, &m_b.cantCol) == 0)
         {
             fprintf(stderr, "ERROR: AL LEER LA FILA O LA COLUMNA DE B\n");
@@ -195,6 +188,7 @@ int main(int argc, char** argv) {
 
         if (m_b.cantFil==0 || m_b.cantCol == 0){
             fprintf(stderr, "ERROR: MATRIZ B NO INGRESADA \n" );
+            liberarMemoria(&m_a);
             exit(1);
         }
         
@@ -223,10 +217,12 @@ int main(int argc, char** argv) {
         }
 
         // Hacer post validaciones
-
         if (m_a.cantCol != m_b.cantFil) 
         {
         	fprintf(stderr, "ERROR:NO SE PUEDEN MULTIPLICAR LAS MATRICES DEBIDO A SUS DIMENSIONES\n");
+            liberarMemoria(&m_a);
+            liberarMemoria(&m_b);
+            exit(1);
         } 
         else 
         {
@@ -255,7 +251,7 @@ int main(int argc, char** argv) {
         m_a.cantFil = 0;
         m_a.cantCol = 0;
         m_b.cantFil = 0;
-        m_a.cantCol = 0;
+        m_b.cantCol = 0;        
     }
 
     return 0;
