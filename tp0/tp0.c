@@ -125,6 +125,12 @@ int main(int argc, char** argv) {
 	/* se cargan los datos para las 2 matrices desde el archivo*/
     while(!feof(fp))
     {
+    
+        m_a.cantFil = 0;
+        m_a.cantCol = 0;
+        m_b.cantFil = 0;
+        m_b.cantCol = 0;
+    
         // Se leen los valores desde el archivo de fila columna y separador de ambos
         if (fscanf(fp, "%dx%d" , &m_a.cantFil, &m_a.cantCol) == 0)
         {
@@ -248,10 +254,6 @@ int main(int argc, char** argv) {
       
         liberarMemoria(&m_a);
         liberarMemoria(&m_b);
-        m_a.cantFil = 0;
-        m_a.cantCol = 0;
-        m_b.cantFil = 0;
-        m_b.cantCol = 0;        
     }
 
     return 0;
