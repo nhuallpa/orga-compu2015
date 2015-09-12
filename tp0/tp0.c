@@ -164,7 +164,7 @@ int main(int argc, char** argv) {
             {
                 if (fscanf(fp, "%lf", &m_a.datos[i][j]) == 0) 
                 {
-                    fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ\n");
+                    fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ A\n");
                     liberarMemoria(&m_a);
                     exit(1);
                 }
@@ -214,7 +214,7 @@ int main(int argc, char** argv) {
             {
                 if (fscanf(fp, "%lf", &m_b.datos[i][j]) == 0) 
                 {
-                    fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ\n");
+                    fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ B\n");
                     liberarMemoria(&m_a);
                     liberarMemoria(&m_b);
                     exit(1);
