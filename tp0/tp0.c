@@ -171,7 +171,6 @@ int main(int argc, char** argv) {
             }
         }
 
-
         // Se leen los valores desde el archivo de fila columna y separador de ambos
         if (fscanf(fp, "%dx%d" , &m_b.cantFil, &m_b.cantCol) == 0)
         {
