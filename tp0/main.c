@@ -2,8 +2,8 @@
 *   6620 - Organizacion del computador 
 *   Trabajo Practico 0 
 *   Alumnos: 
-*           88614 - Nestor Huallpa
-*           88573 - Ariel Martinez
+*           88614 - Huallpa Porcel
+*           XXXXX - Ariel Martinez
 *           93194 - Facundo Caldora
 *  - Validaciones de I/O y formato.
 *  - Probar en el emulador y generar dump de assemble.
@@ -118,25 +118,40 @@ int main(int argc, char** argv) {
     }
 
 	matriz m_a;
+    m_a.datos = NULL;
 	matriz m_b;
+    m_b.datos = NULL;
+
 	int i,j;
+    
+	
+	/* 	
+	OTRAS VALIDACIONES:
+
+	# Verificar si el archivo de entrada viene con una sola matriz.
+	# Se pueda muliplicar las matrices, por ejemplo si las 2 matricez en el archivo de entrada son de 2 x2 verificar que hallan 4 elementos
+	# verificar cuando el archivo viene mal formado, por ejemplo en vez de un numero viene un string
+	# ver que termine bien cuando no hay memoria. si malloc=NULL entonces ver los mensajes de erorr por stderror (esto esta hecho, pero no lo probe).
+
+    # Valida cada fscanf
+    # Liberar memoria ante un error y antes de salir
+
+
+	*/
+
     FILE * fp = stdin;
     
 	/* se cargan los datos para las 2 matrices desde el archivo*/
     while(!feof(fp))
     {
-    
-        m_a.cantFil = 0;
-        m_a.cantCol = 0;
-        m_b.cantFil = 0;
-        m_b.cantCol = 0;
-    
         // Se leen los valores desde el archivo de fila columna y separador de ambos
         if (fscanf(fp, "%dx%d" , &m_a.cantFil, &m_a.cantCol) == 0)
         {
             fprintf(stderr, "ERROR: AL LEER LA FILA O LA COLUMNA DE A\n");
             exit(1);
         }
+      
+
         // Handlers de archivos mal ingresados
         if (m_a.cantFil<0){
             fprintf(stderr, "ERROR: FILA INGRESADA INVALIDA PARA MATRIZ A\n");
@@ -146,10 +161,7 @@ int main(int argc, char** argv) {
             fprintf(stderr, "ERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ A\n");
             exit(1);
         }
-        if (m_a.cantFil==0 || m_a.cantCol == 0){
-            fprintf(stderr, "ERROR: MATRIZ A NO INGRESADA O ESPACIO DE MAS EN EL ARCHIVO\n" );
-            exit(1);
-        }
+
         /* se aloja memoria para la matriz a */
         m_a.datos = mallocMatrizDouble(m_a.cantFil, m_a.cantCol);
         if (m_a.datos == NULL) {
@@ -164,14 +176,14 @@ int main(int argc, char** argv) {
             {
                 if (fscanf(fp, "%lf", &m_a.datos[i][j]) == 0) 
                 {
-                    fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ A\n");
+                    fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ\n");
                     liberarMemoria(&m_a);
                     exit(1);
                 }
             }
         }
 
-
+        printf("Leemos siguiente Matriz");
         // Se leen los valores desde el archivo de fila columna y separador de ambos
         if (fscanf(fp, "%dx%d" , &m_b.cantFil, &m_b.cantCol) == 0)
         {
@@ -179,6 +191,7 @@ int main(int argc, char** argv) {
             liberarMemoria(&m_a);
             exit(1);
         }
+
 
         if (m_b.cantFil<0)
         {
@@ -193,12 +206,6 @@ int main(int argc, char** argv) {
             exit(1);
         }
 
-        if (m_b.cantFil==0 || m_b.cantCol == 0){
-            fprintf(stderr, "ERROR: MATRIZ B NO INGRESADA \n" );
-            liberarMemoria(&m_a);
-            exit(1);
-        }
-        
         /* se aloja memoria para la matriz b */
         m_b.datos = mallocMatrizDouble(m_b.cantFil, m_b.cantCol);
         if (m_b.datos==NULL)
@@ -215,7 +222,7 @@ int main(int argc, char** argv) {
             {
                 if (fscanf(fp, "%lf", &m_b.datos[i][j]) == 0) 
                 {
-                    fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ B\n");
+                    fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ\n");
                     liberarMemoria(&m_a);
                     liberarMemoria(&m_b);
                     exit(1);
@@ -224,12 +231,10 @@ int main(int argc, char** argv) {
         }
 
         // Hacer post validaciones
+
         if (m_a.cantCol != m_b.cantFil) 
         {
         	fprintf(stderr, "ERROR:NO SE PUEDEN MULTIPLICAR LAS MATRICES DEBIDO A SUS DIMENSIONES\n");
-            liberarMemoria(&m_a);
-            liberarMemoria(&m_b);
-            exit(1);
         } 
         else 
         {
@@ -255,6 +260,7 @@ int main(int argc, char** argv) {
       
         liberarMemoria(&m_a);
         liberarMemoria(&m_b);
+
     }
 
     return 0;
