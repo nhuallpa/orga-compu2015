@@ -57,42 +57,29 @@ Como lenguaje de implementación se eligió ANSI C  \cite{Kernighan+Ritchie}
 ya que el mismo permite una alta portabilidad entre diferentes plataformas. 
 El desarrollo del programa se realizó usando un editor de texto 
 (gedit,vim, kwrite) y compilando los archivos fuente con 
-\htmladdnormallink{GCC}{http://gcc.gnu.org/} que viene en linux 
-(probado en Ubuntu y Fedora 12). También una parte se desarrollo 
-usando el IDE \htmladdnormallink{Eclipse}{http://www.eclipse.org/cdt/} con su 
-respectivo plugin para C/C++ y se comprobó que dicho programa
-compile con el \htmladdnormallink{GCC}{http://gcc.gnu.org/} que 
-viene dentro de NETBSD, y como adicional, también se comprobó que 
-el mismo compile y funcione en Windows por medio del 
-\htmladdnormallink{MinGW}{http://www.mingw.org} el cual es una 
-implemetación de los compiladores 
-\htmladdnormallink{GCC}{http://gcc.gnu.org/} para la plataforma 
-Win32 que permite migrar la capacidad de este compilador en 
-entornos windows.
+\htmladdnormallink{GCC}{http://gcc.gnu.org/} que viene en linux.
 La compilación en Linux y en \texttt{BSD, MIPS} se realizó con la 
 siguiente línea de comando:
 
-\textbf{\emph{gcc -Wall -ansi -O0 -o tp0 main.c}}
-
+\begin{tabbing}
+------- \= ----- \= \kill
+\> \textbf{\emph{gcc -Wall -ansi -O0 -o tp0 tp0.c}}\\ 
+\end{tabbing}
 
 \subsection {{\normalsize Descripción del programa}}
 
 Cuando se pasa un nombre como argumento, se verifica que dicho nombre 
-que está haciendo referencia a un archivo, verdaderamente haga referencia 
-a un archivo (.txt, .dat etc (\htmladdnormallink{Regular File}{http://en.wikipedia.org/wiki/Unix_file_types\#Regular_file})) 
-y no a un archivo de directorio, un archivo de dispositivo etc. Una 
-vez hecha la verificación el programa se dispone a leer cada una de 
-las líneas desde el final hacia el principio y las vuelca por salida 
-estándar (stdout). En caso que las lineas provengan del stdin, 
-se utiliza un buffer de memoria dinámica que almacena todas las lineas.\\
-La función \texttt{main} se encuentra en \texttt{tp0.c} y se encarga de 
-interpretar las opciones y argumentos. En caso de ser una opción, 
+que está haciendo referencia a un archivo (.txt, .dat) 
+y no a un archivo de directorio. Una vez hecha la verificación el programa se dispone a leer 
+cada una de las líneas desde el principio. Cada par de lineas leidas como validas 
+se las cargan en memoria dinamica para su posterior multiplicacion, luego el resultado 
+de la multiplicacion se lo imprime por salida estándar (stdout). La función \texttt{main} se encuentra en \texttt{tp0.c} 
+y se encarga de interpretar las opciones y argumentos. En caso de ser una opción, 
 como ayuda o versión, se imprime el mensaje correspondiente y finaliza
 la ejecución. Cuando no es una opción de ayuda o versión, se procede 
-a procesar los datos de entrada, ya sean provenientes del stdin o de 
-archivos. La salida de estas funciones proveen 
+a procesar los datos de entrada. La salida de estas funciones proveen 
 un codigo de error que sirve como salida del programa. Los mensajes de 
-versión y ayuda se imprimen por salida estándar (stdout) y el programa 
+versión y ayuda se imprimen por stdout y el programa 
 finaliza devolviendo 0 (cero) al sistema. Los mensajes de error se 
 imprimen por la salida de errores (stderr) y el programa finaliza 
 devolviendo 1 (uno) al sistema.
@@ -108,20 +95,20 @@ devolviendo 1 (uno) al sistema.
 \end{enumerate}
 
 Se contemplan otros errores gracias al uso de la variable externa errno. 
-Cuando ocurre un error inesperado, el mismo es informado por stderr 
+Cuando ocurre un error inesperado, el mismo es informado por stderr y finaliza el programa
+liberando la memoria que se habia solicitado hasta el momento.
 (con la funión perror()).
 
 \subsection{{\normalsize Desarrollo de actividades}}
 
 \begin{enumerate}
 \item Se instaló en un linux un repositorio de fuentes 
-\htmladdnormallink{(SVN)}{http://es.wikipedia.org/wiki/Subversion}
+\htmladdnormallink{(GIT)}{https://es.wikipedia.org/wiki/Git}
 para que al dividir las tareas del TP se pudiese hacer una unión de
 los cambios ingresados por cada uno de los integrantes más fácilmente. 
 \item Cada persona del grupo se comprometió a que sus cambios en el el código
-fuente y los cambios obtenidos del SVN que pudiesen haber subido los
-otros integrantes del grupo, sean compilados en diferentes sistemas
-operativos: Windows, Linux y el GXEmul, asegurando así la máxima portabilidad
+fuente y los cambios obtenidos del repositorio que pudiesen haber subido los
+otros integrantes del grupo, sean compilados los sistemas operativos Linux y el GXEmul, asegurando así portabilidad
 entre plataformas planteada en el enunciado. 
 \item Se estableció que todos los integrantes en mayor o menor medida, 
 contribuyan en el desarrollo de todas las partes del código para que 
@@ -137,9 +124,7 @@ modulares como para su posible reutilización en los TPs venideros.
 integrantes del grupo, uno de los integrantes dió una breve introducción 
 de como desarrollar este informe para que todos pudiésen modificarlo y agregar lo que considerase
 necesario. Para compilar el archivo del informe se usaron el compilador
-de \LaTeX{} \cite{latex} propio que viene en el Linux, y en el caso que sea necesario
-compilar el informe en un Windows se uso el \htmladdnormallink{MIKTEX}{http://miktex.org/}
-el cuál es una implementación del compilador de \LaTeX{} \cite{latex} para dicha plataforma.
+de \LaTeX{} \cite{latex} propio que viene en el Linux.
 \item Para poder generar el código assembler a partir del código fuente, 
 dentro de NETBSD se utilizó gcc con la siguiente opción: 
 \begin{tabbing}
