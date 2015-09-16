@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
     while (1) {
         siguiente_opcion = getopt_long (argc, argv, op_cortas, op_largas, NULL);
         if (siguiente_opcion == -1) break;
-        switch (siguiente_opcion) {
+        switch (siguiente_opcion) {     
             case 'h' :
                 printf("Usage:\n");
                 printf("\ttp0 -h\n");
@@ -120,6 +120,7 @@ int main(int argc, char** argv) {
 	matriz m_a;
 	matriz m_b;
 	int i,j;
+    char dato;
     FILE * fp = stdin;
     
 	/* se cargan los datos para las 2 matrices desde el archivo*/
@@ -162,6 +163,11 @@ int main(int argc, char** argv) {
         {
             for(j=0;j<m_a.cantCol;j++)
             {
+                if( dato = fgetc(fp) == '\n'){
+                    fprintf(stderr, "ERROR: FALTAN ELEMENTOS EN MATRIZ A\n" );
+                    liberarMemoria(&m_a);
+                    exit(1);
+                }
                 if (fscanf(fp, "%lf", &m_a.datos[i][j]) == 0) 
                 {
                     fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ A\n");
@@ -212,6 +218,12 @@ int main(int argc, char** argv) {
         {
             for(j=0;j<m_b.cantCol;j++)
             {
+                if( dato = fgetc(fp) == '\n'){
+                    fprintf(stderr, "ERROR: FALTAN ELEMENTOS EN MATRIZ B\n" );
+                    liberarMemoria(&m_a);
+                    liberarMemoria(&m_b);
+                    exit(1);
+                }
                 if (fscanf(fp, "%lf", &m_b.datos[i][j]) == 0) 
                 {
                     fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ B\n");
@@ -219,6 +231,9 @@ int main(int argc, char** argv) {
                     liberarMemoria(&m_b);
                     exit(1);
                 }
+                /*
+                printf( "%lf \n", m_b.datos[i][j] );
+                */
             }
         }
 
