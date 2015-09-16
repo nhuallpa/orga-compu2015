@@ -231,9 +231,6 @@ int main(int argc, char** argv) {
                     liberarMemoria(&m_b);
                     exit(1);
                 }
-                /*
-                printf( "%lf \n", m_b.datos[i][j] );
-                */
             }
         }
 
