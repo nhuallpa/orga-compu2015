@@ -16,9 +16,9 @@
             \texttt{ arielcorreofiuba@gmail.com.ar }\\\\
             Nestor Huallpa, \textit{Padrón Nro. }\\
             \texttt{ huallpa.nestor@gmail.com }\\\\
-			Facundo Caldora, \textit{Padrón Nro. [completar con el padron] }\\
-            \texttt{ [completar con mail] }\\\\               
-            \texttt{\footnotesize 1º Entrega: 08/09/2015}\\
+			Facundo Caldora, \textit{Padrón Nro. 93194] }\\
+            \texttt{ facundo.caldora@gmail.com }\\\\               
+            \texttt{\footnotesize 1º Entrega: 22/09/2015}\\
             \\\\\\\\\\\\\\\\\\
             \normalsize{2do. Cuatrimestre de 2015}\\ 
             \normalsize{66.20 Organización de Computadoras} \\
@@ -46,7 +46,7 @@ en punto flotante de doble precisiòn.
 \par\end{flushleft}
 \section{{\normalsize Introducción}}
 
-Completar con la introduccion...
+Completar con una introduccion...
 
 
 \section{{\normalsize Implementación}}
@@ -58,12 +58,12 @@ ya que el mismo permite una alta portabilidad entre diferentes plataformas.
 El desarrollo del programa se realizó usando un editor de texto 
 (gedit,vim, kwrite) y compilando los archivos fuente con 
 \htmladdnormallink{GCC}{http://gcc.gnu.org/} que viene en linux.
-La compilación en Linux y en \texttt{BSD, MIPS} se realizó con la 
+La compilación del programa en Linux y en \texttt{BSD, MIPS} se realizó con la 
 siguiente línea de comando:
 
 \begin{tabbing}
 ------- \= ----- \= \kill
-\> \textbf{\emph{gcc -Wall -ansi -O0 -o tp0 tp0.c}}\\ 
+\> \textbf{\emph{\$ gcc -Wall -ansi -O0 -o tp0 tp0.c}}\\ 
 \end{tabbing}
 
 \subsection {{\normalsize Descripción del programa}}
@@ -91,7 +91,6 @@ devolviendo 1 (uno) al sistema.
 \item El procesamiento de la entrada estándar causó el agotamiento del heap.
 \item La invocación del programa es incorrecta.
 \item Alguno de los archivos es inexistente.
-\item Completar con mas posibles errores...
 \end{enumerate}
 
 Se contemplan otros errores gracias al uso de la variable externa errno. 
@@ -139,79 +138,59 @@ en Linux, ingresar los siguientes comandos:
 \end{tabbing}
 \end{enumerate}
 
-\subsection{{\normalsize Screenshots}}
-
+\subsection{{\normalsize Corridas de pruebas}}
+	Para automatizar las pruebas se crearon los siguientes 3 script: \texttt{test\_suit.sh}, \texttt{gen\_matriz.sh} y \texttt{gen\_test.sh} 
+	\newline
+	
 \begin{enumerate}
-\item NetBSD corriendo
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\newpage{}
-\item Túnel SSH
-\item Linux a NetBSD
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\item NetBsd a Linux
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\newpage{}
-\item Programa compilado y corriendo en NetBSD
-\item Mensaje de ayuda
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\item Mensaje de Versión
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\newpage{}
-\item Pruebas
-\item Archivo Alumnos.txt
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\item Varios Archivos
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\newpage{}
-\item Stdin y Archivos
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\item Solo Stdin
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\newpage{}
-\item Errores
-\item Archivo regular.
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\newpage{}
-\item Archivo inexistente.
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\item Mala Invocación.
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
-\newpage{}
-\item Código assembler
-\begin{center}
-\includegraphics[width=110mm,height=80mm]{temporal.png}
-\end{center}
+	\item 	Prueba 1
+			
+		\begin{center}
+			Al ejecutar el siguiente comando
+			\begin{tabbing}
+			------- \= ----- \= \kill
+			\> \textbf{\emph{\$ ./test\_suit.sh}}\\ 
+			\end{tabbing}
+			se tiene que observar el siguiente resultado
+			\includegraphics[width=110mm,height=80mm]{resultados_test_suit.png}
+			
+		\end{center}
+		
+	\item 	Prueba 2
+			
+		\begin{center}
+			Se utiliza el script \texttt{gen\_test.sh} para probar la multiplicacion de matrices muy grandes se tiene que correr el siguiente comando
+			\begin{tabbing}
+			------- \= ----- \= \kill
+			\> \textbf{\emph{\$ ./gen\_test.sh }}\\ 
+			\end{tabbing}			
+
+			Luego, tiene que observarse que el programa termina correctamente al quedarse sin memoria disponible.
+			
+		\end{center}
+		
 \end{enumerate}
 
+\newpage
+\section{{\normalsize El código fuente, en lenguaje C}}
+
+	Importar el codigo C ...
+
+\newpage
+\section{{\normalsize El código MIPS32 generado por el compilado}}
+
+	Importar el codigo assembly ...
+ 
+\newpage
+\section{{\normalsize Enunciado del trabajo practico}}
+
+	Importar el enunciado ... 
+ 
 \newpage{}
 \section{{\normalsize Conclusiones}}
 
 \begin{enumerate}
-\item Si bien el lo solicitado por el programa no era excesivamente difícil,
+\item Si bien lo solicitado por el programa no era excesivamente difícil,
 la realización completa del TP llevó cierta dificultad al tener que
 realizarlo en el contexto solicitado: alta portabilidad, desarrollo
 en C, e informe hecho en \LaTeX{} \cite{latex}. 
@@ -224,9 +203,11 @@ de la manera más correcta posible
 \item En cuanto al trabajo grupal en si mismo, no hubo inconvenientes de
 ningún tipo ya que al ser el grupo relativamente chico y tener conocimiento
 del manejo del versionado de un proyecto ante cambios ingresado por
-los integrantes (por medio del SVN), la introducción de modificaciones
+los integrantes (por medio del GIT), la introducción de modificaciones
 y correcciones fué fluida. 
 \end{enumerate}
+
+
 
 \bibliographystyle{plain}
 \bibliography{bibliografia}
