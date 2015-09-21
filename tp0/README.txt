@@ -11,3 +11,7 @@ Validaciones:
 	08) ver que termine bien cuando no hay memoria. si malloc=NULL entonces ver los mensajes de error por stderror. PROBAR
     09) Liberar memoria ante un error y antes de salir
     10) Tratar de llevar la gestion de las validaciones por aca... :) asi todos sabemos que es lo que falta y que es lo que se termino.
+
+Links de Interes
+
+http://www.stat.cmu.edu/~nmv/2012/06/14/managing-latex-packages-manually-in-ubuntu-12-04/
