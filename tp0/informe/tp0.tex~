@@ -7,9 +7,6 @@
 % (latin1 es ISO 8859-1).
 \usepackage[latin1]{inputenc}
 \usepackage{hyperref}
-% Include the listings-package
-\usepackage{listings}  
-\usepackage{pdfpages}
 
 
 % Título principal del documento.
@@ -17,7 +14,7 @@
 % Información sobre los autores.
 \author{	Martinez Ariel, \textit{Padrón Nro. 88573}\\
             \texttt{ arielcorreofiuba@gmail.com.ar }\\\\
-            Nestor Huallpa, \textit{Padrón Nro. 88614}\\
+            Nestor Huallpa, \textit{Padrón Nro. }\\
             \texttt{ huallpa.nestor@gmail.com }\\\\
 			Facundo Caldora, \textit{Padrón Nro. 93194] }\\
             \texttt{ facundo.caldora@gmail.com }\\\\               
@@ -162,16 +159,13 @@ en Linux, ingresar los siguientes comandos:
 	\item 	Prueba 2
 			
 		\begin{center}
-			Para poder ejecutar la prueba de memoria insuficiente se utiliza el script \texttt{gen\_test.sh} 
-			que genera un archivo de entrada con dos matrices muy grandes. Adicionalmente este script corre el programa tp0 con valgrind.
+			Se utiliza el script \texttt{gen\_test.sh} para probar la multiplicacion de matrices muy grandes se tiene que correr el siguiente comando
 			\begin{tabbing}
 			------- \= ----- \= \kill
 			\> \textbf{\emph{\$ ./gen\_test.sh }}\\ 
 			\end{tabbing}			
 
-			Pero la prueba definitiva se realizo en NetBSD y puede observarse que el programa termina correctamente al quedarse sin memoria disponible, cuando lo corremos sobre nuestro NetBSD con  60 MB de memoria disponible.
-
-			\includegraphics[width=115mm,height=11mm]{resultado_test_memoria.png}
+			Luego, tiene que observarse que el programa termina correctamente al quedarse sin memoria disponible.
 			
 		\end{center}
 		
@@ -180,13 +174,17 @@ en Linux, ingresar los siguientes comandos:
 \newpage
 \section{{\normalsize El código fuente, en lenguaje C}}
 
-	\lstinputlisting[language=C, basicstyle=\tiny]{tp0.c}	
+	Importar el codigo C ...
 
 \newpage
 \section{{\normalsize El código MIPS32 generado por el compilado}}
 
-	\lstinputlisting[language={[x86masm]Assembler}, firstline=1, lastline=45, basicstyle=\small]{tp0.s}
+	Importar el codigo assembly ...
  
+\newpage
+\section{{\normalsize Enunciado del trabajo practico}}
+
+	Importar el enunciado ... 
  
 \newpage{}
 \section{{\normalsize Conclusiones}}
@@ -209,11 +207,6 @@ los integrantes (por medio del GIT), la introducción de modificaciones
 y correcciones fué fluida. 
 \end{enumerate}
 
-\newpage
-\section{{\normalsize Enunciado del trabajo practico}}
-
-	%\includegraphics[width=0.8\textwidth]{enunciado.pdf}
-	\includepdf[pages={1-},scale=0.75]{enunciado.pdf}
 
 
 \bibliographystyle{plain}

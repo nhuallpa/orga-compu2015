@@ -1,8 +1,11 @@
-\BOOKMARK [1][-]{section.1}{Introducci\363n}{}
-\BOOKMARK [1][-]{section.2}{Implementaci\363n}{}
-\BOOKMARK [2][-]{subsection.2.1}{Lenguaje}{section.2}
-\BOOKMARK [2][-]{subsection.2.2}{Descripci\363n del programa}{section.2}
-\BOOKMARK [3][-]{subsubsection.2.2.1}{Errores posibles}{subsection.2.2}
-\BOOKMARK [2][-]{subsection.2.3}{Desarrollo de actividades}{section.2}
-\BOOKMARK [2][-]{subsection.2.4}{Screenshots}{section.2}
-\BOOKMARK [1][-]{section.3}{Conclusiones}{}
+\BOOKMARK [1][-]{section.1}{Introducci\363n}{}% 1
+\BOOKMARK [1][-]{section.2}{Implementaci\363n}{}% 2
+\BOOKMARK [2][-]{subsection.2.1}{Lenguaje}{section.2}% 3
+\BOOKMARK [2][-]{subsection.2.2}{Descripci\363n del programa}{section.2}% 4
+\BOOKMARK [3][-]{subsubsection.2.2.1}{Errores posibles}{subsection.2.2}% 5
+\BOOKMARK [2][-]{subsection.2.3}{Desarrollo de actividades}{section.2}% 6
+\BOOKMARK [2][-]{subsection.2.4}{Corridas de pruebas}{section.2}% 7
+\BOOKMARK [1][-]{section.3}{El c\363digo fuente, en lenguaje C}{}% 8
+\BOOKMARK [1][-]{section.4}{El c\363digo MIPS32 generado por el compilado}{}% 9
+\BOOKMARK [1][-]{section.5}{Conclusiones}{}% 10
+\BOOKMARK [1][-]{section.6}{Enunciado del trabajo practico}{}% 11
