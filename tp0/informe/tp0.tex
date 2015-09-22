@@ -49,7 +49,7 @@ en punto flotante de doble precisiòn.
 \par\end{flushleft}
 \section{{\normalsize Introducción}}
 
-El objetivo del presentraba trabajo practico es familiarizarse con el emulador gxemul mediante la implementacion de un programa simple de multiplicación de matrices.
+El objetivo del presente trabajo práctico es familiarizarse con el emulador gxemul mediante la implementacion de un programa simple de multiplicación de matrices.
 
 
 \section{{\normalsize Implementación}}
@@ -107,14 +107,13 @@ liberando la memoria que se habia solicitado hasta el momento.
 \htmladdnormallink{(GIT)}{https://es.wikipedia.org/wiki/Git}
 para que al dividir las tareas del TP se pudiese hacer una unión de
 los cambios ingresados por cada uno de los integrantes más fácilmente. 
-\item Cada persona del grupo se comprometió a que sus cambios en el el código
+\item Cada persona del grupo se comprometió a que sus cambios en el código
 fuente y los cambios obtenidos del repositorio que pudiesen haber subido los
-otros integrantes del grupo, sean compilados los sistemas operativos Linux y el GXEmul, asegurando así portabilidad
-entre plataformas planteada en el enunciado. 
+otros integrantes del grupo, sean compilados los sistemas operativos Linux y el NetBSD, asegurando así portabilidad entre plataformas planteada en el enunciado. 
 \item Se estableció que todos los integrantes en mayor o menor medida, 
 contribuyan en el desarrollo de todas las partes del código para que 
 nadie quede en desconocimiento de lo que se hizo en cada sección. 
-Si bien cada parte del código está comenazada por diferentes integrantes (parseo
+Si bien cada parte del código fue realizada por diferentes integrantes (parseo
 de los argumentos, lectura de los ficheros, etc), todos nos 
 familiarizamos con cada una de estas partes y cumplimos la función 
 de testers de lo hecho por otros integrantes. 
@@ -130,7 +129,7 @@ de \LaTeX{} \cite{latex} propio que viene en el Linux.
 dentro de NETBSD se utilizó gcc con la siguiente opción: 
 \begin{tabbing}
 ------- \= ----- \= \kill
-\> \textbf{\emph{gcc -S -Wall -O0 tp0.c -mrnames}}\\ 
+\> \textbf{\emph{gcc -S tp0.c}}\\ 
 \end{tabbing}
 \item Para crear el presente informe en formato PDF usando \LaTeX{} \cite{latex}
 en Linux, ingresar los siguientes comandos:
@@ -140,6 +139,7 @@ en Linux, ingresar los siguientes comandos:
 \end{tabbing}
 \end{enumerate}
 
+\newpage{}
 \subsection{{\normalsize Corridas de pruebas}}
 	Para automatizar las pruebas se crearon los siguientes 3 script: \texttt{test\_suit.sh}, \texttt{gen\_matriz.sh} y \texttt{gen\_test.sh} 
 	\newline
@@ -148,7 +148,7 @@ en Linux, ingresar los siguientes comandos:
 	\item 	Prueba 1
 			
 		\begin{center}
-			Al ejecutar el siguiente comando
+			Contiene una gran bateria de pruebas que se pueden ejecutar con el siguiente comando.
 			\begin{tabbing}
 			------- \= ----- \= \kill
 			\> \textbf{\emph{\$ ./test\_suit.sh}}\\ 

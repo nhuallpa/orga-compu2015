@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.30)  22 SEP 2015 00:12
+This is pdfTeX, Version 3.1415926-2.5-1.40.14 (TeX Live 2013/Debian) (format=pdflatex 2015.8.30)  22 SEP 2015 00:22
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -510,14 +510,39 @@ Package babel Info: Redefining spanish shorthand "?
 (babel)             in language  on input line 110.
 [3]
 
-LaTeX Warning: Citation `latex' on page 4 undefined on input line 124.
+LaTeX Warning: Citation `latex' on page 4 undefined on input line 123.
 
 
-LaTeX Warning: Citation `latex' on page 4 undefined on input line 128.
+LaTeX Warning: Citation `latex' on page 4 undefined on input line 127.
 
 
-LaTeX Warning: Citation `latex' on page 4 undefined on input line 135.
+LaTeX Warning: Citation `latex' on page 4 undefined on input line 134.
 
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand <<
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand >>
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand "=
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand "~
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand "!
+(babel)             in language  on input line 142.
+Package babel Info: Redefining spanish shorthand "?
+(babel)             in language  on input line 142.
+[4]
 Package babel Info: Redefining spanish shorthand <<
 (babel)             in language  on input line 143.
 Package babel Info: Redefining spanish shorthand >>
@@ -541,38 +566,14 @@ Underfull \hbox (badness 10000) in paragraph at lines 144--146
 
  []
 
-<resultados_test_suit.png, id=91, 1371.1225pt x 770.88pt>
+<resultados_test_suit.png, id=103, 1371.1225pt x 770.88pt>
 File: resultados_test_suit.png Graphic file (type png)
 
 <use resultados_test_suit.png>
 Package pdftex.def Info: resultados_test_suit.png used on input line 157.
 (pdftex.def)             Requested size: 312.96648pt x 227.61935pt.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand <<
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand >>
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand "=
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand "~
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand "!
-(babel)             in language  on input line 159.
-Package babel Info: Redefining spanish shorthand "?
-(babel)             in language  on input line 159.
- [4]
-<resultado_test_memoria.png, id=105, 750.805pt x 64.24pt>
+
+<resultado_test_memoria.png, id=104, 750.805pt x 64.24pt>
 File: resultado_test_memoria.png Graphic file (type png)
 
 <use resultado_test_memoria.png>
@@ -1072,7 +1073,7 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 221.
 Here is how much of TeX's memory you used:
  9333 strings out of 494966
  131853 string characters out of 6179559
- 287828 words of memory out of 5000000
+ 287829 words of memory out of 5000000
  12074 multiletter control sequences out of 15000+600000
  12126 words of font info for 43 fonts, out of 8000000 for 9000
  40 hyphenation exceptions out of 8191
@@ -1104,7 +1105,7 @@ share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/t
 exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb></usr/share/texlive
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmtt12.pfb></usr/share/texlive/texmf
 -dist/fonts/type1/public/amsfonts/cm/cmtt8.pfb>
-Output written on tp0.pdf (15 pages, 459378 bytes).
+Output written on tp0.pdf (15 pages, 458566 bytes).
 PDF statistics:
  695 PDF objects out of 1000 (max. 8388607)
  631 compressed objects within 7 object streams
