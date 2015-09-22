@@ -49,7 +49,7 @@ en punto flotante de doble precisiòn.
 \par\end{flushleft}
 \section{{\normalsize Introducción}}
 
-Completar con una introduccion...
+El objetivo del presentraba trabajo practico es familiarizarse con el emulador gxemul mediante la implementacion de un programa simple de multiplicación de matrices.
 
 
 \section{{\normalsize Implementación}}
@@ -61,18 +61,17 @@ ya que el mismo permite una alta portabilidad entre diferentes plataformas.
 El desarrollo del programa se realizó usando un editor de texto 
 (gedit,vim, kwrite) y compilando los archivos fuente con 
 \htmladdnormallink{GCC}{http://gcc.gnu.org/} que viene en linux.
-La compilación del programa en Linux y en \texttt{BSD, MIPS} se realizó con la 
-siguiente línea de comando:
+Para compilar, ejecutar el siguiente comando:
 
 \begin{tabbing}
 ------- \= ----- \= \kill
-\> \textbf{\emph{\$ gcc -Wall -ansi -O0 -o tp0 tp0.c}}\\ 
+\> \textbf{\emph{\$ make}}\\ 
 \end{tabbing}
 
 \subsection {{\normalsize Descripción del programa}}
 
 Cuando se pasa un nombre como argumento, se verifica que dicho nombre 
-que está haciendo referencia a un archivo (.txt, .dat) 
+que está haciendo referencia a un archivo (.txt)
 y no a un archivo de directorio. Una vez hecha la verificación el programa se dispone a leer 
 cada una de las líneas desde el principio. Cada par de lineas leidas como validas 
 se las cargan en memoria dinamica para su posterior multiplicacion, luego el resultado 

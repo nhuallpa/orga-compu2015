@@ -22,8 +22,8 @@ typedef struct {
 
 double** mallocMatrizDouble(int cantFila, int cantCol) 
 {
-    int i = 0;
-    int k = 0;
+    int i;
+    int k;
     double** datos = ((double**)malloc(cantFila*sizeof(double*)));
     if (datos == NULL) 
     {
@@ -31,7 +31,6 @@ double** mallocMatrizDouble(int cantFila, int cantCol)
     }
     else 
     {
-        // Nuleamos array
         for (i=0; i<cantFila; i++)
         {
             datos[i] = NULL;       
@@ -42,7 +41,6 @@ double** mallocMatrizDouble(int cantFila, int cantCol)
             datos[i] = ((double*)malloc(cantCol*sizeof(double)));
             if (datos[i]==NULL)
             {
-                // todo:liberamos toda memoria tomada hasta el momento
                 for (k=0;k<cantFila;k++)
                 {
                     if (datos[k] != NULL) {
@@ -132,13 +130,13 @@ int main(int argc, char** argv) {
         m_b.cantFil = 0;
         m_b.cantCol = 0;
     
-        // Se leen los valores desde el archivo de fila columna y separador de ambos
+        /*Se leen los valores desde el archivo de fila columna y separador de ambos*/
         if (fscanf(fp, "%dx%d" , &m_a.cantFil, &m_a.cantCol) == 0)
         {
             fprintf(stderr, "ERROR: AL LEER LA FILA O LA COLUMNA DE A\n");
             exit(1);
         }
-        // Handlers de archivos mal ingresados
+        /* Handlers de archivos mal ingresados */
         if (m_a.cantFil<0){
             fprintf(stderr, "ERROR: FILA INGRESADA INVALIDA PARA MATRIZ A\n");
             exit(1);
@@ -158,12 +156,11 @@ int main(int argc, char** argv) {
             exit(1);
         } 
 
-        // Se cargan los datos de la matriz A
         for(i=0;i<m_a.cantFil;i++)
         {
             for(j=0;j<m_a.cantCol;j++)
             {
-                if( dato = fgetc(fp) == '\n'){
+                if ( (dato = fgetc(fp)) == '\n'){
                     fprintf(stderr, "ERROR: FALTAN ELEMENTOS EN MATRIZ A\n" );
                     liberarMemoria(&m_a);
                     exit(1);
@@ -177,7 +174,6 @@ int main(int argc, char** argv) {
             }
         }
 
-        // Se leen los valores desde el archivo de fila columna y separador de ambos
         if (fscanf(fp, "%dx%d" , &m_b.cantFil, &m_b.cantCol) == 0)
         {
             fprintf(stderr, "ERROR: AL LEER LA FILA O LA COLUMNA DE B\n");
@@ -213,12 +209,12 @@ int main(int argc, char** argv) {
             exit(1);
         }
 
-        // Se cargan los datos de la matriz B
+    
         for(i=0;i<m_b.cantFil;i++)
         {
             for(j=0;j<m_b.cantCol;j++)
             {
-                if( dato = fgetc(fp) == '\n'){
+                if( (dato = fgetc(fp)) == '\n'){
                     fprintf(stderr, "ERROR: FALTAN ELEMENTOS EN MATRIZ B\n" );
                     liberarMemoria(&m_a);
                     liberarMemoria(&m_b);
@@ -234,7 +230,6 @@ int main(int argc, char** argv) {
             }
         }
 
-        // Hacer post validaciones
         if (m_a.cantCol != m_b.cantFil) 
         {
         	fprintf(stderr, "ERROR:NO SE PUEDEN MULTIPLICAR LAS MATRICES DEBIDO A SUS DIMENSIONES\n");
@@ -244,7 +239,6 @@ int main(int argc, char** argv) {
         } 
         else 
         {
-            // multipliacacion de la matriz
             printf("%dX%d", m_a.cantFil, m_b.cantCol);
             int k = 0;
             double suma = 0.0;
