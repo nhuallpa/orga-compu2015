@@ -74,9 +74,9 @@ void liberarMemoria(matriz* p_m)
     }
 }
 
-int main(int argc, char** argv) {
-
-    int siguiente_opcion;
+void manejarArgumentosEntrada(int argc, char** argv)
+{
+	int siguiente_opcion;
 
     /* Una cadena que lista las opciones cortas validas */
     const char* const op_cortas = "hV";
@@ -115,8 +115,47 @@ int main(int argc, char** argv) {
         }
     }
 
+}
+
+
+void cargarMatrices()
+{
+
+	
+}
+
+void multiplicarMatrices(matriz m_a, matriz m_b, matriz* m_resultado)
+{
+
+	m_resultado->cantFil = m_a.cantFil;
+	m_resultado->cantCol = m_b.cantCol;
+	
+    printf("%dX%d", m_a.cantFil, m_b.cantCol);
+    int i,j,k = 0;
+    double suma = 0.0;
+    for (i=0; i<m_a.cantFil; i++) 
+    {
+        for (j=0; j<m_b.cantCol; j++) 
+        {
+        	suma = 0.0;
+            for (k=0; k<m_a.cantCol;k++) 
+            {
+                suma = suma + (m_a.datos[i][k] * m_b.datos[k][j]);
+            }
+            printf(" %4.2lf", suma);
+        }
+    }
+    printf("\n");
+    
+}
+
+int main(int argc, char** argv) {
+
+	manejarArgumentosEntrada(argc, argv);
+
 	matriz m_a;
 	matriz m_b;
+	matriz m_resultado;
 	int i,j;
     char dato;
     FILE * fp = stdin;
@@ -239,23 +278,7 @@ int main(int argc, char** argv) {
         } 
         else 
         {
-            printf("%dX%d", m_a.cantFil, m_b.cantCol);
-            int k = 0;
-            double suma = 0.0;
-            for (i=0; i<m_a.cantFil; i++) 
-            {
-                for (j=0; j<m_b.cantCol; j++) 
-                {
-                	suma = 0.0;
-                    for (k=0; k<m_a.cantCol;k++) 
-                    {
-                        suma = suma + (m_a.datos[i][k] * m_b.datos[k][j]);
-                    }
-                    printf(" %4.2lf", suma);
-                }
-            }
-            printf("\n");
-
+			multiplicarMatrices(m_a, m_b, &m_resultado);
         }
       
         liberarMemoria(&m_a);
