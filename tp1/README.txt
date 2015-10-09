@@ -1,3 +1,17 @@
 
-Consideraciones:
-Los archivos de pruebas que vamos a usar serian los mismos que estan en la carpeta 'entrada' de la carpeta del tp0. Para esto podemos hacer referencia al path de esa carpeta.
+Validaciones:
+
+	01) Multiplicacion de matrices simples. OK
+	02) Multiplicacion de matricez de 8x8. OK
+	03) Multiplicacion de dos pares de matrices. OK
+	04) Multiplicacion de matrices con dimensiones incorrectas. OK
+	05) Dimension de matriz leida incorrecta. OK
+	06) Elemento de matriz leida incorrecta. OK
+	07) Verificar que la cantidad de matrices sean pares. OK
+	08) ver que termine bien cuando no hay memoria. si malloc=NULL entonces ver los mensajes de error por stderror. PROBAR
+    09) Liberar memoria ante un error y antes de salir
+    10) Tratar de llevar la gestion de las validaciones por aca... :) asi todos sabemos que es lo que falta y que es lo que se termino.
+
+Links de Interes
+
+http://www.stat.cmu.edu/~nmv/2012/06/14/managing-latex-packages-manually-in-ubuntu-12-04/
