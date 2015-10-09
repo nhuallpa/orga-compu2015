@@ -89,23 +89,23 @@ void manejarArgumentosEntrada(int argc, char** argv)
 
 
 
-void multiplicarMatrices(matriz m_a, matriz m_b)
+void multiplicarMatrices(double* m_a_datos, double* m_b_datos, int m_a_cantFil, int m_a_cantCol, int m_b_cantCol)
 {
 
-    printf("%dX%d", m_a.cantFil, m_b.cantCol);
+    printf("%dX%d", m_a_cantFil, m_b_cantCol);
     int i,j,k = 0;
     double suma = 0.0;
-    for (i=0; i<m_a.cantFil; i++) 
+    for (i=0; i<m_a_cantFil; i++) 
     {
-        for (j=0; j<m_b.cantCol; j++) 
+        for (j=0; j<m_b_cantCol; j++) 
         {
         	suma = 0.0;
-            for (k=0; k<m_a.cantCol;k++) 
+            for (k=0; k<m_a_cantCol;k++) 
             {
-                int indiceA = (i*m_a.cantCol) + k;
-                int indiceB = j + k*(m_b.cantCol);
+                int indiceA = (i*m_a_cantCol) + k;
+                int indiceB = j + k*(m_b_cantCol);
 
-                suma = suma + (m_a.datos[indiceA] * m_b.datos[indiceB]);
+                suma = suma + (m_a_datos[indiceA] * m_b_datos[indiceB]);
             }
             printf(" %4.2lf", suma);
         }
@@ -245,7 +245,7 @@ int main(int argc, char** argv) {
         } 
         else 
         {
-			multiplicarMatrices(m_a, m_b);
+			multiplicarMatrices(m_a.datos, m_b.datos, m_a.cantFil, m_a.cantCol, m_b.cantCol);
         }
       
         liberarMemoria(&m_a);
