@@ -14,19 +14,15 @@
 #include <stdlib.h>
 #include <getopt.h>
 
-//extern void multiplicarMatrices(double* m_a_datos, double* m_b_datos, int m_a_cantFil, int m_a_cantCol, int m_b_cantCol);
+//extern void multiplicar(double* m_a_datos, double* m_b_datos, int m_a_cantFil, int m_a_cantCol, int m_b_cantCol);
 
-
-/**Comentar desde aca**/
-void multiplicarMatrices(double* m_a_datos, double* m_b_datos, int m_a_cantFil, int m_a_cantCol, int m_b_cantCol)
-{
-
-    printf("%dX%d", m_a_cantFil, m_b_cantCol);
+/** Pasar a assember y comentar desde aca**/
+void multiplicar(double* m_a_datos, double* m_b_datos, int m_a_cantFil, int m_a_cantCol, int m_b_cantCol) {
     int i,j,k = 0;
     int indiceA = 0;
     int indiceB = 0
     double suma = 0.0;
-    
+
     for (i=0; i<m_a_cantFil; i++) 
     {
         for (j=0; j<m_b_cantCol; j++) 
@@ -39,13 +35,21 @@ void multiplicarMatrices(double* m_a_datos, double* m_b_datos, int m_a_cantFil, 
 
                 suma = suma + (m_a_datos[indiceA] * m_b_datos[indiceB]);
             }
-            printf(" %4.2lf", suma);
+            printf(" %4.2lf", suma);  // SACAR DE ACA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
         }
     }
+}
+/** COMENTAR HASTA ACA**/
+
+void multiplicarMatrices(double* m_a_datos, double* m_b_datos, int m_a_cantFil, int m_a_cantCol, int m_b_cantCol)
+{
+    printf("%dX%d", m_a_cantFil, m_b_cantCol);
+
+    // Cargar el resultado en una tercera matriz
+    multiplicar(m_a.datos, m_b.datos, m_a.cantFil, m_a.cantCol, m_b.cantCol);
     printf("\n");
 }
 
-/** COMENTAR HASTA ACA**/
 typedef struct {
        int cantFil;
        int cantCol;
