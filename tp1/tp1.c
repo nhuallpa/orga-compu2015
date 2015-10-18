@@ -7,20 +7,39 @@
 *           93194 - Facundo Caldora
 *
 * Para compilar
-* $ gcc -g -Wall -o tp1 04-tp1.c 04-multiplicar.S
+* $ gcc -g -Wall -o tp1 tp1.c multiplicar.S
 */
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <getopt.h>
 
-//extern void multiplicar(double* m_a_datos, double* m_b_datos, int m_a_cantFil, int m_a_cantCol, int m_b_cantCol);
+typedef struct {
+       int cantFil;
+       int cantCol;
+       double* datos;
+} matriz;
 
-/** Pasar a assember y comentar desde aca**/
-void multiplicar(double* m_a_datos, double* m_b_datos, int m_a_cantFil, int m_a_cantCol, int m_b_cantCol) {
+
+
+extern void multiplicar(double* m_a_datos, double* m_b_datos, double* matriz_res, 
+                    int m_a_cantFil, int m_a_cantCol, int m_b_cantCol);
+
+/**
+* 
+* @param m_a_datos Arreglo de la matriz A
+* @param m_b_datos Arreglo de la matriz B
+* @param matriz_res Arreglo de la matriz C producto de hacer la multiplicación 
+* @param m_a_cantFil Cantidad de filas de la matriz A
+* @param m_a_cantCol Cantidad de columnas de la matriz A
+* @param m_b_cantCol Cantidad de columnas de la matriz B
+**/
+/*void multiplicar(double* m_a_datos, double* m_b_datos, double* matriz_res, 
+                    int m_a_cantFil, int m_a_cantCol, int m_b_cantCol) {
     int i,j,k = 0;
     int indiceA = 0;
-    int indiceB = 0
+    int indiceB = 0;
+    int indiceC = 0;
     double suma = 0.0;
 
     for (i=0; i<m_a_cantFil; i++) 
@@ -35,26 +54,42 @@ void multiplicar(double* m_a_datos, double* m_b_datos, int m_a_cantFil, int m_a_
 
                 suma = suma + (m_a_datos[indiceA] * m_b_datos[indiceB]);
             }
-            printf(" %4.2lf", suma);  // SACAR DE ACA!!!!!!!!!!!!!!!!!!!!!!!!!!!!!1
+            indiceC = i*m_b_cantCol + j;
+            matriz_res[indiceC] = suma;
         }
     }
-}
-/** COMENTAR HASTA ACA**/
+}*/
 
-void multiplicarMatrices(double* m_a_datos, double* m_b_datos, int m_a_cantFil, int m_a_cantCol, int m_b_cantCol)
+/**
+* Imprime cada elemento de array por stdout
+*/
+void imprimirElementos(double* arreglo, int n)
 {
-    printf("%dX%d", m_a_cantFil, m_b_cantCol);
-
-    // Cargar el resultado en una tercera matriz
-    multiplicar(m_a.datos, m_b.datos, m_a.cantFil, m_a.cantCol, m_b.cantCol);
-    printf("\n");
+    int i=0;
+    for (i=0; i<n; i++) {
+        double elemento = arreglo[i];
+        printf(" %4.2lf", elemento);
+    }
 }
 
-typedef struct {
-       int cantFil;
-       int cantCol;
-       double* datos;
-} matriz;
+int multiplicarMatrices(matriz* m_a, matriz* m_b)
+{
+    int m_a_cantFil = (*m_a).cantFil;
+    int m_b_cantCol = (*m_b).cantCol;
+
+    double* matriz_resultado = ((double*)malloc(m_a_cantFil*m_b_cantCol*sizeof(double)));
+    if (matriz_resultado == NULL) {
+        return 1;
+    }
+
+    printf("%dX%d", m_a_cantFil, m_b_cantCol);
+    multiplicar((*m_a).datos, (*m_b).datos, matriz_resultado, (*m_a).cantFil, (*m_a).cantCol, (*m_b).cantCol);
+    imprimirElementos(matriz_resultado, m_a_cantFil*m_b_cantCol);
+    free(matriz_resultado);
+    printf("\n");
+    return 0;
+}
+
 
 double* mallocMatrizDouble(int cantFila, int cantCol) 
 {
@@ -257,7 +292,13 @@ int main(int argc, char** argv) {
         } 
         else 
         {
-			multiplicarMatrices(m_a.datos, m_b.datos, m_a.cantFil, m_a.cantCol, m_b.cantCol);
+            if (multiplicarMatrices(&m_a, &m_b) != 0) {
+                fprintf(stderr, "ERROR:MEMORIA INSUFICIENTE PARA MATRIZ A\n");
+                liberarMemoria(&m_a);
+                liberarMemoria(&m_b);
+                exit(1);      
+            }
+
         }
       
         liberarMemoria(&m_a);
@@ -266,5 +307,6 @@ int main(int argc, char** argv) {
 	
     return 0;
 }
+
 
 
