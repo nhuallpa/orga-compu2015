@@ -1,0 +1,188 @@
+\documentclass[a4paper,10pt]{article}
+% Paquete para inclusión de gráficos.
+\usepackage{graphicx}
+% Paquete para definir el idioma usado.
+\usepackage[spanish]{babel}
+% Paquete para definir la codificación del conjunto de caracteres usado
+% (latin1 es ISO 8859-1).
+\usepackage[latin1]{inputenc}
+\usepackage{hyperref}
+% Include the listings-package
+\usepackage{listings}  
+\usepackage{pdfpages}
+
+
+% Título principal del documento.
+\title{	\ Trabajo Práctico Nº 1: Assembly MIPS}
+% Información sobre los autores.
+\author{	Martinez Ariel, \textit{Padrón Nro. 88573}\\
+            \texttt{ arielcorreofiuba@gmail.com.ar }\\\\
+            Nestor Huallpa, \textit{Padrón Nro. 88614}\\
+            \texttt{ huallpa.nestor@gmail.com }\\\\               
+            \texttt{\footnotesize 1º Entrega: 20/10/2015}\\
+            \\\\\\\\\\\\\\\\\\
+            \normalsize{2do. Cuatrimestre de 2015}\\ 
+            \normalsize{66.20 Organización de Computadoras} \\
+            \normalsize{Facultad de Ingeniería, Universidad de Buenos Aires} \\}
+       
+\date{}
+
+\begin{document}
+% Inserta el título.
+\maketitle
+% quita el número en la primer página
+\thispagestyle{empty}
+% Resumen
+\begin{abstract}
+En el presente trabajo práctico se describirán todos los pasos y 
+conclusiones relacionadas al desarrollo e implementación de multiplicacion de matrices de numero reales, representados en punto flotante de doble precisión.
+\end{abstract}
+\newpage{}
+\tableofcontents
+\newpage{}
+
+\begin{flushleft}
+
+\par\end{flushleft}
+\section{{\normalsize Introducción}}
+
+El objetivo del presente trabajo práctico es familiarizarse con el conjunto de instrucciones MIPS y el concepto de ABI.
+
+
+\section{{\normalsize Implementación}}
+
+\subsection{{\normalsize Lenguaje}}
+
+Como lenguaje de implementación se eligió ANSI C  \cite{Kernighan+Ritchie}
+ya que el mismo permite una alta portabilidad entre diferentes plataformas. 
+El desarrollo del programa se realizó usando un editor de texto 
+(gedit,vim, kwrite) y compilando los archivos fuente con 
+\htmladdnormallink{GCC}{http://gcc.gnu.org/} que viene en linux.
+Para compilar, ejecutar el siguiente comando:
+
+\begin{tabbing}
+------- \= ----- \= \kill
+\> \textbf{\emph{\$ make}}\\ 
+\end{tabbing}
+
+\subsection {{\normalsize Descripción del programa}}
+
+Cuando se pasa un nombre como argumento, se verifica que dicho nombre 
+que está haciendo referencia a un archivo (.txt)
+y no a un archivo de directorio. Una vez hecha la verificación el programa se dispone a leer 
+cada una de las líneas desde el principio. Cada par de lineas leidas como validas 
+se las cargan en memoria dinamica para su posterior multiplicacion, luego el resultado 
+de la multiplicacion se lo imprime por salida estándar (stdout). La función \texttt{main} se encuentra en \texttt{tp1.c} 
+y se encarga de interpretar las opciones y argumentos. En caso de ser una opción, 
+como ayuda o versión, se imprime el mensaje correspondiente y finaliza
+la ejecución. Cuando no es una opción de ayuda o versión, se procede 
+a procesar los datos de entrada. La salida de estas funciones proveen 
+un codigo de error que sirve como salida del programa. Los mensajes de 
+versión y ayuda se imprimen por stdout y el programa 
+finaliza devolviendo 0 (cero) al sistema. Los mensajes de error se 
+imprimen por la salida de errores (stderr) y el programa finaliza 
+devolviendo 1 (uno) al sistema.
+
+
+\subsubsection {{\normalsize Errores posibles}}
+
+\begin{enumerate}
+\item El procesamiento de la entrada estándar causó el agotamiento del heap.
+\item La invocación del programa es incorrecta.
+\item Alguno de los archivos es inexistente.
+\end{enumerate}
+
+Se contemplan otros errores gracias al uso de la variable externa errno. 
+Cuando ocurre un error inesperado, el mismo es informado por stderr y finaliza el programa
+liberando la memoria que se habia solicitado hasta el momento.
+(con la funión perror()).
+
+\subsection{{\normalsize Desarrollo de actividades}}
+
+\begin{enumerate}
+\item Se tomó el código fuente generado por el tp0, y se realizaron algunos cambios de implementación en la multiplicación de las matrices. Se dejó de utilizar un arreglo de punto a puntero de doubles y se ahora utiliza un puntero a doubles. También se separo la parte computacional en una funcion llamada multiplicacion.
+
+\lstinputlisting[language=C, basicstyle=\tiny]{multiplicar.c}	
+
+\item Una vez separada la función multiplicación. Primero que nada, se definio el stack frame a reservar y las variables involucradas. Luego, se realizó la codificación en Assembly MIPS, en el archivo \texttt{multiplicar.S}. \\Stack Frame:
+
+\includegraphics[width=40mm,height=43mm]{stackframe.png}
+
+\item Para crear el presente informe en formato PDF usando \LaTeX{} \cite{latex}
+en Linux, ingresar los siguientes comandos:
+\begin{tabbing}
+------- \= ----- \= \kill
+\> \textbf{\emph{\$ pdflatex tp1.tex tp1.pdf}}\\ 
+\end{tabbing}
+\end{enumerate}
+
+\newpage{}
+\subsection{{\normalsize Corridas de pruebas}}
+	Para automatizar las pruebas se crearon los siguientes 3 script: \texttt{test\_suit.sh}, \texttt{gen\_matriz.sh} y \texttt{gen\_test.sh} 
+	\newline
+	
+\begin{enumerate}
+	\item 	Prueba 1
+			
+		\begin{center}
+			Contiene una gran bateria de pruebas que se pueden ejecutar con el siguiente comando.
+			\begin{tabbing}
+			------- \= ----- \= \kill
+			\> \textbf{\emph{\$ source test\_suit.sh}}\\ 
+			\end{tabbing}
+			se tiene que observar el siguiente resultado
+			\includegraphics[width=110mm,height=80mm]{resultados_test_suit.png}
+			
+		\end{center}
+		
+	\item 	Prueba 2
+			
+		\begin{center}
+			Para poder ejecutar la prueba de memoria insuficiente se utiliza el script \texttt{gen\_test.sh} 
+			que genera un archivo de entrada con dos matrices muy grandes. Adicionalmente este script corre el programa tp1 con valgrind.
+			\begin{tabbing}
+			------- \= ----- \= \kill
+			\> \textbf{\emph{\$ source gen\_test.sh }}\\ 
+			\end{tabbing}			
+
+			Pero la prueba definitiva se realizo en NetBSD y puede observarse que el programa termina correctamente al quedarse sin memoria disponible, cuando lo corremos sobre nuestro NetBSD con  60 MB de memoria disponible.
+
+			\includegraphics[width=115mm,height=11mm]{resultado_test_memoria.png}
+			
+		\end{center}
+		
+\end{enumerate}
+
+\newpage
+\section{{\normalsize El código fuente, en lenguaje C}}
+
+	\lstinputlisting[language=C, basicstyle=\tiny]{tp1.c}	
+
+\newpage
+\section{{\normalsize Funcion multiplicar, en lenguaje Assembly MIPS}}
+
+	\lstinputlisting[language={[x86masm]Assembler}, basicstyle=\small]{multiplicar.S}
+ 
+ 
+\newpage{}
+\section{{\normalsize Conclusiones}}
+
+\begin{enumerate}
+\item Si bien lo solicitado por el programa no era excesivamente difícil,
+la realización completa del TP llevó cierta dificultad al tener que
+realizarlo en el contexto solicitado: alta portabilidad, desarrollo
+en C, e informe hecho en \LaTeX{} \cite{latex}. 
+\item Resulta muy útil analizar previamente como queda el stack frame para poder programar en assembly MIPS.
+\item Nos familiarizamos con la forma de manejar los registros en mips y también con las intrucciones de punto flotante. Se tuvo en cuenta la longitud de un double para poder iterar el arreglo de doubles.
+\end{enumerate}
+
+\newpage
+\section{{\normalsize Enunciado del trabajo practico}}
+
+	\includepdf[pages={1-},scale=0.75]{enunciado.pdf}
+
+
+\bibliographystyle{plain}
+\bibliography{bibliografia}
+\nocite{*}
+\end{document}
