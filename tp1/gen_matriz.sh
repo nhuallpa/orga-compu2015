@@ -19,3 +19,5 @@ do
 		echo -n  " $randomnum" >> ${archivo}
 	done
 done
+
+echo -e "" >> ${archivo}

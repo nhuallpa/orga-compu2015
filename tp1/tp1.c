@@ -10,6 +10,14 @@
 #include <stdlib.h>
 #include <getopt.h>
 
+#define cod_test_04 4;
+#define cod_test_05 5;
+#define cod_test_06 6;
+#define cod_test_07 7;
+#define cod_test_08 8;
+#define cod_test_09 9;
+#define cod_test_10 10;  
+
 typedef struct {
        int cantFil;
        int cantCol;
@@ -130,95 +138,69 @@ int main(int argc, char** argv) {
 	int i,j;
     char dato;
     FILE * fp = stdin;
-    
-	/* se cargan los datos para las 2 matrices desde el archivo*/
+
     while(!feof(fp))
     {
-    
         m_a.cantFil = 0;
         m_a.cantCol = 0;
         m_b.cantFil = 0;
         m_b.cantCol = 0;
     
-        /*Se leen los valores desde el archivo de fila columna y separador de ambos*/
-        if (fscanf(fp, "%dx%d" , &m_a.cantFil, &m_a.cantCol) == 0)
-        {
-            fprintf(stderr, "ERROR: AL LEER LA FILA O LA COLUMNA DE A\n");
-            exit(1);
+        if (fscanf(fp, "%dx%d" , &m_a.cantFil, &m_a.cantCol) == 0){
+            fprintf(stderr, "formato invalido para fila y/o la columna de A\n");
+            exit(5);
         }
-        /* Handlers de archivos mal ingresados */
-        if (m_a.cantFil<0){
-            fprintf(stderr, "ERROR: FILA INGRESADA INVALIDA PARA MATRIZ A\n");
-            exit(1);
-        }
-        if (m_a.cantCol<0){
-            fprintf(stderr, "ERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ A\n");
-            exit(1);
-        }
+
         if (m_a.cantFil==0 || m_a.cantCol == 0){
-            fprintf(stderr, "ERROR: MATRIZ A NO INGRESADA O ESPACIO DE MAS EN EL ARCHIVO\n" );
+            fprintf(stderr, "A no ingresada o se detecto una linea vacia en el archivo\n" );
             exit(1);
         }
-        /* se aloja memoria para la matriz a */
+        
         m_a.datos = mallocMatrizDouble(m_a.cantFil, m_a.cantCol);
         if (m_a.datos == NULL) {
-            fprintf(stderr, "ERROR:MEMORIA INSUFICIENTE PARA MATRIZ A\n");
-            exit(1);
+            fprintf(stderr, "memoria insuficiente para A\n");
+            exit(10);
         } 
 
         for(i=0;i<m_a.cantFil;i++)
         {
             for(j=0;j<m_a.cantCol;j++)
             {
-                int indice = (i*m_a.cantCol) + j;
-
                 if ( (dato = fgetc(fp)) == '\n'){
-                    fprintf(stderr, "ERROR: FALTAN ELEMENTOS EN MATRIZ A\n" );
+                    fprintf(stderr, "faltan elementos de A\n" );
                     liberarMemoria(&m_a);
-                    exit(1);
+                    exit(9);
                 }
-                if (fscanf(fp, "%lf", &m_a.datos[indice]) == 0) 
+                if (fscanf(fp, "%lf", &m_a.datos[(i*m_a.cantCol) + j]) == 0) 
                 {
-                    fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ A\n");
+                    fprintf(stderr, "formato invalido para elemento de A\n");
                     liberarMemoria(&m_a);
-                    exit(1);
+                    exit(5);
                 }
             }
         }
 
         if (fscanf(fp, "%dx%d" , &m_b.cantFil, &m_b.cantCol) == 0)
         {
-            fprintf(stderr, "ERROR: AL LEER LA FILA O LA COLUMNA DE B\n");
+			fprintf(stderr, "formato invalido para fila y/o la columna de A\n");
             liberarMemoria(&m_a);
-            exit(1);
+            exit(5);
         }
 
-        if (m_b.cantFil<0)
-        {
-            fprintf(stderr, "ERROR: FILA INGRESADA INVALIDA PARA MATRIZ B\n");
-            liberarMemoria(&m_a);
-            exit(1);
-        }
-        if (m_b.cantCol<0)
-        {
-            fprintf(stderr, "ERROR: COLUMNA INGRESADA INVALIDA PARA MATRIZ B\n");
-            liberarMemoria(&m_a);
-            exit(1);
-        }
 
         if (m_b.cantFil==0 || m_b.cantCol == 0){
-            fprintf(stderr, "ERROR: MATRIZ B NO INGRESADA \n" );
+            fprintf(stderr, "no se ingreso B\n" );
             liberarMemoria(&m_a);
-            exit(1);
+            exit(7);
         }
         
         /* se aloja memoria para la matriz b */
         m_b.datos = mallocMatrizDouble(m_b.cantFil, m_b.cantCol);
         if (m_b.datos==NULL)
         {
-            fprintf(stderr, "ERROR:MEMORIA INSUFICIENTE PARA MATRIZ B\n");
+            fprintf(stderr, "memoria insuficiente para B\n");
             liberarMemoria(&m_a);
-            exit(1);
+            exit(10);
         }
 
     
@@ -226,37 +208,36 @@ int main(int argc, char** argv) {
         {
             for(j=0;j<m_b.cantCol;j++)
             {
-                int indice = (i*m_b.cantCol) + j;
                 if( (dato = fgetc(fp)) == '\n'){
-                    fprintf(stderr, "ERROR: FALTAN ELEMENTOS EN MATRIZ B\n" );
+                    fprintf(stderr, "faltan elementos en B\n" );
                     liberarMemoria(&m_a);
                     liberarMemoria(&m_b);
-                    exit(1);
+                    exit(8);
                 }
-                if (fscanf(fp, "%lf", &m_b.datos[indice]) == 0) 
+                if (fscanf(fp, "%lf", &m_b.datos[(i*m_b.cantCol) + j]) == 0) 
                 {
-                    fprintf(stderr, "ERROR: ELEMENTO INCORRECTO EN LA MATRIZ B\n");
+                    fprintf(stderr, "formato invalido para elemento de B\n");
                     liberarMemoria(&m_a);
                     liberarMemoria(&m_b);
-                    exit(1);
+                    exit(6);
                 }
             }
         }
-
+			
         if (m_a.cantCol != m_b.cantFil) 
         {
-        	fprintf(stderr, "ERROR:NO SE PUEDEN MULTIPLICAR LAS MATRICES DEBIDO A SUS DIMENSIONES\n");
+        	fprintf(stderr, "dimensiones invalidas para la multiplicacion\n" );
             liberarMemoria(&m_a);
             liberarMemoria(&m_b);
-            exit(1);
+            exit(4);
         } 
         else 
         {
             if (multiplicarMatrices(&m_a, &m_b) != 0) {
-                fprintf(stderr, "ERROR:MEMORIA INSUFICIENTE PARA MATRIZ A\n");
+                fprintf(stderr, "memoria insuficiente para A\n");
                 liberarMemoria(&m_a);
                 liberarMemoria(&m_b);
-                exit(1);      
+                exit(10);      
             }
 
         }

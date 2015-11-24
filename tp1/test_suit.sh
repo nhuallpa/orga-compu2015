@@ -1,39 +1,64 @@
-#!/bin/bash
-echo "========================================================================="
-echo "Comienzo de pruebas"
-echo "========================================================================="
-echo "Test 1: Multiplicacion simple 2x2."
-cat entrada/test1.txt | ./tp1 	
+#!/bin/sh
+
+mostrar_resultado_test()
+{
+	if [ $1 -eq $2 ]
+	then
+		echo "OK" 
+	else
+		echo "FALLO"
+	fi
+}
+
+test_multiplicacion(){
+	cat "entrada/$1.txt" | ./tp1 > "resultado/$1.txt"
+	if [ $? -eq $2 ]
+	then		
+		diff "resultado/$1.txt" "resultado_esperado/$1.txt" 2>&1 >/dev/null
+		mostrar_resultado_test $? 0
+	else
+		echo "FALLO"
+	fi	
+}
+
+echo "Prueba 1:"
+test_multiplicacion "test1" 0
+		  
 echo "-------------------------------------------------------------------------"
-echo "Test 2: Multiplicacion media de 8x8."
-cat entrada/test2.txt | ./tp1 	
+echo "Prueba 2:"
+test_multiplicacion "test2" 0
+
 echo "-------------------------------------------------------------------------"
-echo "Test 3: Multiplicacion de dos pares de matrices."
-cat entrada/test3.txt | ./tp1 	
+echo "Prueba 3:"
+test_multiplicacion "test3" 0
+
 echo "-------------------------------------------------------------------------"
-echo "Test 4: Multiplicacion de matrices con dimensiones incorrectas."
+echo "Prueba 4:"
 cat entrada/testDimensionIncorrecta.txt | ./tp1
+mostrar_resultado_test $? 4
+
 echo "-------------------------------------------------------------------------"
-echo "Test 5: Dimension de matriz leida incorrecta."
+echo "Prueba 5:"
 cat entrada/testElementoIncorrecto1.txt | ./tp1
+mostrar_resultado_test $? 5
+
 echo "-------------------------------------------------------------------------"
-echo "Test 6: Elemento de matriz leida incorrecta."
+echo "Prueba 6:"
 cat entrada/testElementoIncorrecto2.txt | ./tp1
+mostrar_resultado_test $? 6
+
 echo "-------------------------------------------------------------------------"
-echo "Test 7: Multiplicacion de matrices impares(solo una matriz cargada)."
+echo "Prueba 7:"
 cat entrada/testImpar1.txt | ./tp1
+mostrar_resultado_test $? 7
+
 echo "-------------------------------------------------------------------------"
-echo "Test 8: Multiplicacion de matrices impares(5 matrices cargadas)."
-cat entrada/testImpar2.txt | ./tp1
-echo "-------------------------------------------------------------------------"
-echo "Test 9: Multiplicacion de matrices cuando la cantidad de elementos es manor."
+echo "Prueba 8:"
 cat entrada/testFormat3.txt | ./tp1
+mostrar_resultado_test $? 8
+
 echo "-------------------------------------------------------------------------"
-echo "Test 10: Multiplicacion de matrices cuando la cantidad de elementos es menor."
+echo "Prueba 9:"
 cat entrada/testFormat4.txt | ./tp1
-echo "-------------------------------------------------------------------------"
-echo "Test 11: Multiplicacion de matrices cuando la cantidad de elementos es mayor(TERMINAR...)."
-cat entrada/testCantElementosIncorrectos.txt | ./tp1
-echo "========================================================================="
-echo "Fin de pruebas"
-echo "========================================================================="
+mostrar_resultado_test $? 9
+
